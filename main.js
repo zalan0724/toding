@@ -13,6 +13,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "mainTab": () => (/* binding */ mainTab),
 /* harmony export */   "mainItems": () => (/* binding */ mainItems)
 /* harmony export */ });
+/* harmony import */ var _items__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+
 
 
 const navBar = (() => {
@@ -50,12 +52,14 @@ const sideBar = (() => {
     items.setAttribute('class', 'items')
     const newButton = document.createElement('button')
     newButton.setAttribute('class', 'button newButton')
-    newButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="n' +
-        'one" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" display="block" id="P' +
-        'lus"><path d="M12 20v-8m0 0V4m0 8h8m-8 0H4"/></svg>'
+    newButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="buttonSVG" width="24" height="24"' +
+        ' viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"' +
+        ' stroke-linejoin="round" display="block" id="Plus"><path d="M12 20v-8m0 0V4m0 8h8m-8 0H4"/></svg>'
 
     newButton.addEventListener('click', () => {
-        sideBarAdd()
+        switchElements(document.querySelector('.sideBar'),
+            sideBarAdd.bar,
+            190)
     })
     bar.appendChild(title)
     bar.appendChild(items)
@@ -100,12 +104,12 @@ const mainItems = (itemName, id, project, startDate, endDate, description) => {
     const projectName = document.createElement('span')
     projectName.innerHTML = `${project}`
 
-    return card
+    return { card }
 }
 
-const sideBarAdd = () => {
-    const bar = document.querySelector('.sideBar')
-    bar.innerHTML = ''
+const sideBarAdd = (() => {
+    const bar = document.createElement('section')
+    bar.setAttribute('class', 'sideBar')
     const title = document.createElement('h2')
     title.innerHTML = 'Adding'
     bar.appendChild(title)
@@ -124,14 +128,99 @@ const sideBarAdd = () => {
     }
     const addButton = document.createElement('button')
     addButton.setAttribute('class', 'button addButton')
-    addButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>'
+    addButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"' +
+        'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"' +
+        ' display="block" id="Check"><path d="M4 12l6 6L20 6"/></svg>'
+    addButton.addEventListener('click', () => {
+        const name = document.querySelector('#addName').value
+        const project = document.querySelector('#addProject').value
+        const startDate = document.querySelector('#addStartingDate').value
+        const endDate = document.querySelector('#addEndingDate').value
+        const description = document.querySelector('#addDescription').value
+        _items__WEBPACK_IMPORTED_MODULE_0__.items.addItem(name, project, startDate, endDate, description)
+    })
     bar.appendChild(addButton)
     const cancelButton = document.createElement('button')
     cancelButton.setAttribute('class', 'button cancelButton')
-    cancelButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"/></svg>'
+    cancelButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"' +
+        ' fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"' +
+        ' display="block" id="Cross" style="width: 75%; height: 75%"><path d="M20 20L4 4m16 0L4 20"/></svg>'
+    cancelButton.addEventListener('click', () => {
+        console.log(document.querySelector('#addEndingDate').value)
+        const inputs = document.querySelectorAll('.sideBar input')
+        inputs.forEach(element => {
+            element.value = ''
+        })
+        switchElements(document.querySelector('.sideBar'),
+            sideBar.bar,
+            190)
+    })
     bar.appendChild(cancelButton)
+
+    return { bar }
+})()
+
+const switchElements = (fromElement, toElement, duration) => {
+    fromElement.classList.toggle('fadeAway')
+    const switchAnimation = setTimeout(() => {
+        fromElement.classList.toggle('fadeAway')
+        toElement.classList.toggle('fadeIn')
+        fromElement.parentNode.replaceChild(toElement, fromElement)
+        const endAnimation = setTimeout(() => {
+            document.querySelector('.fadeIn').classList.toggle('fadeIn')
+        }, duration)
+    }, duration)
 }
 
+
+
+/***/ }),
+/* 2 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "items": () => (/* binding */ items)
+/* harmony export */ });
+const items = (() => {
+    const itemList = []
+
+    const addItem = (itemName, project, startDate, endDate, description) => {
+        let item = {
+            name: itemName,
+            id: getID(),
+            project: project,
+            startDate: new Date(
+                parseInt(startDate.substring(0, 4)),
+                parseInt(startDate.substring(5, 7)) - 1,
+                parseInt(startDate.substring(8, 10))),
+            endDate: new Date(
+                parseInt(endDate.substring(0, 4)),
+                parseInt(endDate.substring(5, 7)) - 1,
+                parseInt(endDate.substring(8, 10))),
+            description: description
+        }
+
+        itemList.push(item)
+        console.log(itemList)
+    }
+
+    const removeItem = (id) => {
+        itemList.splice(id, 1)
+        for (let i = id; i < itemList.length; i++) {
+            itemList[i].id--
+        }
+    }
+
+    const getID = () => {
+        return itemList.length
+    }
+
+    const getList = () => {
+        return itemList
+    }
+    return { addItem, removeItem, getList }
+})()
 
 
 
@@ -202,7 +291,10 @@ __webpack_require__.r(__webpack_exports__);
 const loadPage = (() => {
     const content = document.querySelector('.content')
     content.appendChild(_elements__WEBPACK_IMPORTED_MODULE_0__.navBar.nav)
-    content.appendChild(_elements__WEBPACK_IMPORTED_MODULE_0__.sideBar.bar)
+    const sideContainer = document.createElement('div')
+    sideContainer.setAttribute('class', 'sideContainer')
+    sideContainer.appendChild(_elements__WEBPACK_IMPORTED_MODULE_0__.sideBar.bar)
+    content.appendChild(sideContainer)
     content.appendChild(_elements__WEBPACK_IMPORTED_MODULE_0__.mainTab.tab)
 })()
 })();

@@ -49,7 +49,7 @@ nav button svg:hover {
     transform: scale(1.1) rotate(45deg);
 }
 
-.sideBar {
+.sideContainer {
     display: inline-block;
     height: 100%;
     width: 240px;
@@ -59,7 +59,7 @@ nav button svg:hover {
     padding-left: 10px;
     padding-right: 10px;
     padding-top: 70px;
-    box-shadow: inset -1px 0 9px rgba(0, 0, 0, 0.5);
+    box-shadow: inset -1px 0 9px rgba(0, 0, 0, 0.3);
     z-index: 19;
 }
 
@@ -81,7 +81,7 @@ nav button svg:hover {
     transition-duration: 0.2s;
 }
 
-.sideBar .button:hover {
+.button:hover {
     transform: scale(1.1);
 }
 
@@ -91,7 +91,7 @@ nav button svg:hover {
     color: white;
 }
 
-.sideBar h2 {
+h2 {
     background-color: rgb(250, 250, 250);
     margin-top: 0;
     border-bottom: 1px solid #3961e6;
