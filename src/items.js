@@ -6,12 +6,19 @@ const items = (() => {
             name: itemName,
             id: getID(),
             project: project,
-            startDate: new Date(startDate[0], startDate[1], startDate[2]),
-            endDate: new Date(endDate[0], endDate[1], endDate[2]),
+            startDate: new Date(
+                parseInt(startDate.substring(0, 4)),
+                parseInt(startDate.substring(5, 7)) - 1,
+                parseInt(startDate.substring(8, 10))),
+            endDate: new Date(
+                parseInt(endDate.substring(0, 4)),
+                parseInt(endDate.substring(5, 7)) - 1,
+                parseInt(endDate.substring(8, 10))),
             description: description
         }
 
         itemList.push(item)
+        console.log(itemList)
     }
 
     const removeItem = (id) => {

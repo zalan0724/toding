@@ -1,0 +1,21 @@
+.fadeAway {
+    animation-name: fadeAnimation;
+    animation-duration: 0.2s;
+    animation-iteration-count: 1;
+}
+
+.fadeIn {
+    animation-name: fadeAnimation;
+    animation-duration: 0.2s;
+    animation-iteration-count: 1;
+    animation-direction: reverse;
+}
+
+@keyframes fadeAnimation {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
