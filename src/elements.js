@@ -110,6 +110,9 @@ const sideBarAdd = (() => {
         bar.appendChild(inputName)
         bar.appendChild(inputBox)
     }
+
+    //Add button
+
     const addButton = document.createElement('button')
     addButton.setAttribute('class', 'button addButton')
     addButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"' +
@@ -122,19 +125,23 @@ const sideBarAdd = (() => {
         const endDate = document.querySelector('#addEndingDate').value
         const description = document.querySelector('#addDescription').value
         items.addItem(name, project, startDate, endDate, description)
+        emptyInputs(document.querySelectorAll('.sideBar input'))
+        switchElements(document.querySelector('.sideBar'),
+            sideBar.bar,
+            190)
+
     })
     bar.appendChild(addButton)
+
+    //Cancel button
+
     const cancelButton = document.createElement('button')
     cancelButton.setAttribute('class', 'button cancelButton')
     cancelButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"' +
         ' fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"' +
         ' display="block" id="Cross" style="width: 75%; height: 75%"><path d="M20 20L4 4m16 0L4 20"/></svg>'
     cancelButton.addEventListener('click', () => {
-        console.log(document.querySelector('#addEndingDate').value)
-        const inputs = document.querySelectorAll('.sideBar input')
-        inputs.forEach(element => {
-            element.value = ''
-        })
+        emptyInputs(document.querySelectorAll('.sideBar input'))
         switchElements(document.querySelector('.sideBar'),
             sideBar.bar,
             190)
@@ -154,6 +161,10 @@ const switchElements = (fromElement, toElement, duration) => {
             document.querySelector('.fadeIn').classList.toggle('fadeIn')
         }, duration)
     }, duration)
+}
+
+const emptyInputs = inputs => {
+    inputs.forEach(input => { input.value = '' })
 }
 
 export { navBar, sideBar, sideBarItem, mainTab, mainItems }
