@@ -11,7 +11,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "sideBar": () => (/* binding */ sideBar),
 /* harmony export */   "sideBarItem": () => (/* binding */ sideBarItem),
 /* harmony export */   "mainTab": () => (/* binding */ mainTab),
-/* harmony export */   "mainItems": () => (/* binding */ mainItems)
+/* harmony export */   "mainItems": () => (/* binding */ mainItems),
+/* harmony export */   "refreshItems": () => (/* binding */ refreshItems)
 /* harmony export */ });
 /* harmony import */ var _items__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 
@@ -175,12 +176,56 @@ const switchElements = (fromElement, toElement, duration) => {
         fromElement.parentNode.replaceChild(toElement, fromElement)
         const endAnimation = setTimeout(() => {
             document.querySelector('.fadeIn').classList.toggle('fadeIn')
+            if (toElement == sideBar.bar) refreshItems()
         }, duration)
     }, duration)
 }
 
 const emptyInputs = inputs => {
     inputs.forEach(input => { input.value = '' })
+}
+
+const refreshItems = () => {
+    const itemList = _items__WEBPACK_IMPORTED_MODULE_0__.items.getList()
+    const sideBar = document.querySelector('.items')
+    sideBar.innerHTML = ''
+    const mainTab = document.querySelector('.mainTab')
+    mainItems.innerHTML = ''
+        //Fill sideBar
+    for (let i = 0; i < itemList.length; i++) {
+        const itemBox = document.createElement('div')
+        itemBox.setAttribute('id', `${itemList[i].id}`)
+        itemBox.setAttribute('class', 'itemList')
+        const textConatiner = document.createElement('div')
+        textConatiner.setAttribute('class', 'textConiner')
+        const name = document.createElement('h3')
+        name.innerHTML = `${itemList[i].name}<br/>`
+        const project = document.createElement('span')
+        project.innerHTML = `${itemList[i].project}`
+        textConatiner.appendChild(name)
+        textConatiner.appendChild(project)
+        itemBox.appendChild(textConatiner)
+        const editButton = document.createElement('button')
+        editButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" ' +
+            'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ' +
+            'display="block" id="Edit"><path d="M16.474 5.408l2.118 2.117m-.756-3.982L12.109 9.27a2.118 2.118 0 ' +
+            '00-.58 1.082L11 13l2.648-.53c.41-.082.786-.283 1.082-.579l5.727-5.727a1.853 1.853 0 10-2.621-2.621z"/>' +
+            '<path d="M19 15v3a2 2 0 01-2 2H6a2 2 0 01-2-2V7a2 2 0 012-2h3"/></svg>'
+        const deleteButton = document.createElement('button')
+        deleteButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"' +
+            'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"' +
+            ' display="block" id="TrashCan"><path d="M4 6h16l-1.58 14.22A2 2 0 0116.432 22H7.568a2 2 0 ' +
+            '01-1.988-1.78L4 6z"/><path d="M7.345 3.147A2 2 0 019.154 2h5.692a2 2 0 011.81 1.147L18 6H6l1.345-2.853z"/>' +
+            '<path d="M2 6h20"/><path d="M10 11v5"/><path d="M14 11v5"/></svg>'
+        deleteButton.addEventListener('click', () => {
+            _items__WEBPACK_IMPORTED_MODULE_0__.items.removeItem(itemList[i].id)
+            refreshItems()
+        })
+
+        itemBox.appendChild(editButton)
+        itemBox.appendChild(deleteButton)
+        sideBar.appendChild(itemBox)
+    }
 }
 
 
