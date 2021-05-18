@@ -1,4 +1,4 @@
-import { navBar, sideBar, sideBarItem, mainTab } from './elements'
+import { navBar, sideBar, sideBarItem, mainTab, refreshItems } from './elements'
 
 const loadPage = (() => {
     const content = document.querySelector('.content')
