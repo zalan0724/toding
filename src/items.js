@@ -42,16 +42,18 @@ const items = (() => {
     }
 
     const intoCalendar = () => {
-        let eventList = []
+        let eventList = "["
         for (let i = 0; i < itemList.length; i++) {
-            const event = {
-                title: `${itemList[i].name}`,
-                start: `${itemList[i].startDate[0]}-${itemList[i].startDate[1]}-${itemList[i].startDate[2]}`,
-                end: `${itemList[i].endDate[0]}-${itemList[i].endDate[1]}-${itemList[i].endDate[2]}`
-            }
-            eventList.push(event)
+            const event = `{
+                "title": "${itemList[i].name}",
+                "start": "${format(new Date(itemList[i].startDate[0],itemList[i].startDate[1],itemList[i].startDate[2]),'yyyy-MM-dd')}",
+                "end": "${format(new Date(itemList[i].endDate[0],itemList[i].endDate[1],itemList[i].endDate[2]+1), 'yyyy-MM-dd')}"
+            }`
+            eventList += event
+            if (i < itemList.length - 1) eventList += ","
         }
-        return eventList
+        eventList += "]"
+        return JSON.parse(eventList)
     }
 
     const saveList = () => {

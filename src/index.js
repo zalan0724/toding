@@ -18,5 +18,4 @@ const loadPage = (() => {
     mainElements.appendChild(widgetTab.widgetBar.bar)
     content.appendChild(mainElements)
     refreshItems()
-    widgetTab.calendarRender(items.intoCalendar())
 })()

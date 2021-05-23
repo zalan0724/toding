@@ -14,6 +14,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _items__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 /* harmony import */ var _sideBar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
 /* harmony import */ var _mainPage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
+/* harmony import */ var _widgets__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(38);
+
 
 
 
@@ -53,6 +55,7 @@ const refreshItems = () => {
             itemList[i].endDate,
             itemList[i].description))
     }
+    _widgets__WEBPACK_IMPORTED_MODULE_3__.widgetTab.calendarRender(_items__WEBPACK_IMPORTED_MODULE_0__.items.intoCalendar())
 }
 
 
@@ -66,6 +69,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "items": () => (/* binding */ items)
 /* harmony export */ });
 /* harmony import */ var _elements__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5);
 
 
 
@@ -110,16 +114,18 @@ const items = (() => {
     }
 
     const intoCalendar = () => {
-        let eventList = []
+        let eventList = "["
         for (let i = 0; i < itemList.length; i++) {
-            const event = {
-                title: `${itemList[i].name}`,
-                start: `${itemList[i].startDate[0]}-${itemList[i].startDate[1]}-${itemList[i].startDate[2]}`,
-                end: `${itemList[i].endDate[0]}-${itemList[i].endDate[1]}-${itemList[i].endDate[2]}`
-            }
-            eventList.push(event)
+            const event = `{
+                "title": "${itemList[i].name}",
+                "start": "${(0,date_fns__WEBPACK_IMPORTED_MODULE_1__.default)(new Date(itemList[i].startDate[0],itemList[i].startDate[1],itemList[i].startDate[2]),'yyyy-MM-dd')}",
+                "end": "${(0,date_fns__WEBPACK_IMPORTED_MODULE_1__.default)(new Date(itemList[i].endDate[0],itemList[i].endDate[1],itemList[i].endDate[2]+1), 'yyyy-MM-dd')}"
+            }`
+            eventList += event
+            if (i < itemList.length - 1) eventList += ","
         }
-        return eventList
+        eventList += "]"
+        return JSON.parse(eventList)
     }
 
     const saveList = () => {
@@ -3174,7 +3180,6 @@ const widgetTab = (() => {
     })()
 
     const calendarRender = eventList => {
-        const newEvents = eventList.slice()
         const calendarEl = document.getElementById('calendar');
         const calendar = new FullCalendar.Calendar(calendarEl, {
             headerToolbar: {
@@ -3183,9 +3188,9 @@ const widgetTab = (() => {
                 right: 'next'
             },
             initialView: 'dayGridMonth',
-            events: [],
+            events: eventList,
         });
-        console.log(newEvents)
+        console.log(eventList)
         calendar.render();
     }
 
@@ -3281,7 +3286,6 @@ const loadPage = (() => {
     mainElements.appendChild(_widgets__WEBPACK_IMPORTED_MODULE_4__.widgetTab.widgetBar.bar)
     content.appendChild(mainElements)
     ;(0,_elements__WEBPACK_IMPORTED_MODULE_0__.refreshItems)()
-    _widgets__WEBPACK_IMPORTED_MODULE_4__.widgetTab.calendarRender(_items__WEBPACK_IMPORTED_MODULE_5__.items.intoCalendar())
 })()
 })();
 

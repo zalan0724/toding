@@ -18,7 +18,6 @@ const widgetTab = (() => {
     })()
 
     const calendarRender = eventList => {
-        const newEvents = eventList.slice()
         const calendarEl = document.getElementById('calendar');
         const calendar = new FullCalendar.Calendar(calendarEl, {
             headerToolbar: {
@@ -27,9 +26,9 @@ const widgetTab = (() => {
                 right: 'next'
             },
             initialView: 'dayGridMonth',
-            events: newEvents,
+            events: eventList,
         });
-        console.log(newEvents)
+        console.log(eventList)
         calendar.render();
     }
 

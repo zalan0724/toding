@@ -1,6 +1,7 @@
 import { items } from "./items"
 import { sideBarListPage, sideBarAddPage, sideBarItem } from './sideBar'
 import { mainTab, mainItems } from './mainPage'
+import { widgetTab } from './widgets'
 
 const switchElements = (fromElement, toElement, duration) => {
     fromElement.classList.toggle('fadeAway')
@@ -37,6 +38,7 @@ const refreshItems = () => {
             itemList[i].endDate,
             itemList[i].description))
     }
+    widgetTab.calendarRender(items.intoCalendar())
 }
 
 export { refreshItems, emptyInputs, switchElements }
