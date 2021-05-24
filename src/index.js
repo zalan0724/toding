@@ -3,7 +3,6 @@ import { sideBarListPage } from './sideBar'
 import { navBar } from './navigationBar'
 import { mainTab } from './mainPage'
 import { widgetTab } from './widgets'
-import { items } from './items'
 
 const loadPage = (() => {
     const content = document.querySelector('.content')
@@ -17,5 +16,11 @@ const loadPage = (() => {
     mainElements.appendChild(mainTab.tab)
     mainElements.appendChild(widgetTab.widgetBar.bar)
     content.appendChild(mainElements)
-    refreshItems()
+    refreshItems("All")
+
+    const list = document.querySelector('#projectSelector')
+    list.addEventListener('input', () => {
+        const value = list.options[list.selectedIndex].text
+        refreshItems(value)
+    })
 })()

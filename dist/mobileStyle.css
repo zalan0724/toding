@@ -1,0 +1,24 @@
+@media (max-width: 1060px) {
+    .widgetBar {
+        display: none;
+    }
+    .mainElements {
+        grid-template-columns: 240px auto;
+    }
+}
+
+@media (max-width: 700px) {
+    .mainElements {
+        grid-template-columns: auto;
+        justify-content: center;
+    }
+    .sideContainer {
+        display: none;
+    }
+    .mainTab {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+    }
+}

@@ -27,10 +27,11 @@ const sideBarListPage = (() => {
     return { bar }
 })()
 
-const sideBarItem = (nameIn, idIn, projectIn) => {
+const sideBarItem = (nameIn, idIn, projectIn, colorIn) => {
     const itemBox = document.createElement('div')
     itemBox.setAttribute('id', `${idIn}`)
     itemBox.setAttribute('class', 'listItem')
+    itemBox.style.borderBottom = `1px solid ${colorIn}`
     const textConatiner = document.createElement('div')
     textConatiner.setAttribute('class', 'textContainer')
     const name = document.createElement('h3')
@@ -57,7 +58,9 @@ const sideBarItem = (nameIn, idIn, projectIn) => {
         '<path d="M2 6h20"/><path d="M10 11v5"/><path d="M14 11v5"/></svg>'
     deleteButton.addEventListener('click', () => {
         items.removeItem(idIn)
-        refreshItems()
+        const list = document.querySelector('#projectSelector')
+        const value = list.options[list.selectedIndex].text
+        refreshItems(value)
     })
 
     buttonContainer.appendChild(editButton)
@@ -73,8 +76,8 @@ const sideBarAddPage = (() => {
     const title = document.createElement('h2')
     title.innerHTML = 'Adding'
     bar.appendChild(title)
-    const inputs = ['Name', 'Project', 'Starting Date', 'Ending Date', 'Description']
-    const types = ['text', 'text', 'date', 'date', 'text']
+    const inputs = ['Name', 'Project', 'Starting Date', 'Ending Date', 'Description', 'Color']
+    const types = ['text', 'text', 'date', 'date', 'text', 'color']
     for (let i = 0; i < inputs.length; i++) {
         const inputLabel = document.createElement('label')
         inputLabel.setAttribute('for', `${inputs[i].replace(' ','')}`)
@@ -87,9 +90,23 @@ const sideBarAddPage = (() => {
         inputBox.setAttribute('name', `${inputs[i].replace(' ','')}`)
         inputBox.setAttribute('type', `${types[i]}`)
         inputBox.required = true
+        if (types[i] == 'color') {
+            inputBox.defaultValue = '#3961e6'
+        }
         inputLabel.appendChild(inputName)
         bar.appendChild(inputLabel)
         bar.appendChild(inputBox)
+        if (types[i] == 'date') {
+            const inputTimeBox = document.createElement('input')
+            inputTimeBox.setAttribute('class', 'inputBox')
+            inputTimeBox.setAttribute('id', `${'addTime'+inputs[i].replace(' ','')}`)
+            inputTimeBox.setAttribute('name', `${inputs[i].replace(' ','')}`)
+            inputTimeBox.setAttribute('type', 'time')
+            inputTimeBox.required = true
+            inputTimeBox.value = '00:00'
+            bar.appendChild(inputTimeBox)
+        }
+
     }
 
     //Add button
@@ -100,17 +117,37 @@ const sideBarAddPage = (() => {
         'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"' +
         ' display="block" id="Check"><path d="M4 12l6 6L20 6"/></svg>'
     addButton.addEventListener('click', () => {
-        const name = document.querySelector('#addName').value
-        const project = document.querySelector('#addProject').value
-        const startDate = document.querySelector('#addStartingDate').value
-        const endDate = document.querySelector('#addEndingDate').value
-        const description = document.querySelector('#addDescription').value
-        items.addItem(name, project, startDate, endDate, description)
-        emptyInputs(document.querySelectorAll('.sideBar input'))
-        switchElements(document.querySelector('.sideBar'),
-            sideBarListPage.bar,
-            190)
+        const name = document.querySelector('#addName')
+        const project = document.querySelector('#addProject')
+        const startDate = document.querySelector('#addStartingDate')
+        const endDate = document.querySelector('#addEndingDate')
+        const startingTime = document.querySelector('#addTimeStartingDate')
+        const endingTime = document.querySelector('#addTimeEndingDate')
+        const description = document.querySelector('#addDescription')
+        const color = document.querySelector('#addColor')
+        if (name.checkValidity() &&
+            project.checkValidity() &&
+            startDate.checkValidity() &&
+            endDate.checkValidity() &&
+            startingTime.checkValidity() &&
+            endingTime.checkValidity() &&
+            description.checkValidity() &&
+            color.checkValidity()) {
 
+            items.addItem(
+                name.value,
+                project.value,
+                startDate.value,
+                startingTime.value,
+                endDate.value,
+                endingTime.value,
+                description.value,
+                color.value)
+            emptyInputs(document.querySelectorAll('.sideBar input'))
+            switchElements(document.querySelector('.sideBar'),
+                sideBarListPage.bar,
+                190)
+        }
     })
     bar.appendChild(addButton)
 

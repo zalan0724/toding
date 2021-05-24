@@ -2,6 +2,7 @@ import { items } from "./items"
 import { sideBarListPage, sideBarAddPage, sideBarItem } from './sideBar'
 import { mainTab, mainItems } from './mainPage'
 import { widgetTab } from './widgets'
+import { intervalToDuration } from "date-fns"
 
 const switchElements = (fromElement, toElement, duration) => {
     fromElement.classList.toggle('fadeAway')
@@ -11,16 +12,23 @@ const switchElements = (fromElement, toElement, duration) => {
         fromElement.parentNode.replaceChild(toElement, fromElement)
         const endAnimation = setTimeout(() => {
             document.querySelector('.fadeIn').classList.toggle('fadeIn')
-            if (toElement == sideBarListPage.bar) refreshItems()
+            if (toElement == sideBarListPage.bar) {
+                const list = document.querySelector('#projectSelector')
+                const value = list.options[list.selectedIndex].text
+                refreshItems(value)
+            }
         }, duration)
     }, duration)
 }
 
 const emptyInputs = inputs => {
-    inputs.forEach(input => { input.value = '' })
+    inputs.forEach(input => {
+        if (input.getAttribute('type') != 'color') input.value = ''
+        else input.value = '#3961e6'
+    })
 }
 
-const refreshItems = () => {
+const refreshItems = project => {
     const itemList = items.getList()
     items.saveList()
     const sideBar = document.querySelector('.items')
@@ -29,16 +37,23 @@ const refreshItems = () => {
     mainTab.innerHTML = ''
         //Fill sideBar
     for (let i = 0; i < itemList.length; i++) {
-        sideBar.appendChild(sideBarItem(itemList[i].name, itemList[i].id, itemList[i].project))
-        mainTab.appendChild(mainItems(
-            itemList[i].name,
-            itemList[i].id,
-            itemList[i].project,
-            itemList[i].startDate,
-            itemList[i].endDate,
-            itemList[i].description))
+        if (project == 'All' || project == itemList[i].project) {
+            sideBar.appendChild(sideBarItem(
+                itemList[i].name,
+                itemList[i].id,
+                itemList[i].project,
+                itemList[i].color))
+            mainTab.appendChild(mainItems(
+                itemList[i].name,
+                itemList[i].id,
+                itemList[i].project,
+                itemList[i].startDate,
+                itemList[i].endDate,
+                itemList[i].description,
+                itemList[i].color))
+        }
     }
-    widgetTab.calendarRender(items.intoCalendar())
+    widgetTab.calendarRender(items.intoCalendar(project))
 }
 
 export { refreshItems, emptyInputs, switchElements }

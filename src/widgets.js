@@ -26,10 +26,11 @@ const widgetTab = (() => {
                 right: 'next'
             },
             initialView: 'dayGridMonth',
+            eventLimit: true,
             events: eventList,
         });
-        console.log(eventList)
         calendar.render();
+        calendar.updateSize()
     }
 
     return { widgetBar, calendarWidget, calendarRender }
