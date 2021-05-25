@@ -4,6 +4,13 @@ const mainTab = (() => {
     const tab = document.createElement('div')
     tab.setAttribute('class', 'mainTab')
 
+    const newButton = document.createElement('button')
+    newButton.setAttribute('class', 'button newButton mobileButton')
+    newButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="buttonSVG" width="24" height="24"' +
+        ' viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"' +
+        ' stroke-linejoin="round" display="block" id="Plus"><path d="M12 20v-8m0 0V4m0 8h8m-8 0H4"/></svg>'
+
+
     return { tab }
 })()
 

@@ -2977,6 +2977,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _elements__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var _items__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
+/* harmony import */ var _navigationBar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(38);
+
 
 
 
@@ -3040,6 +3042,7 @@ const sideBarItem = (nameIn, idIn, projectIn, colorIn) => {
         const list = document.querySelector('#projectSelector')
         const value = list.options[list.selectedIndex].text
         ;(0,_elements__WEBPACK_IMPORTED_MODULE_0__.refreshItems)(value)
+        ;(0,_navigationBar__WEBPACK_IMPORTED_MODULE_2__.updateProjectList)()
     })
 
     buttonContainer.appendChild(editButton)
@@ -3126,6 +3129,7 @@ const sideBarAddPage = (() => {
             ;(0,_elements__WEBPACK_IMPORTED_MODULE_0__.switchElements)(document.querySelector('.sideBar'),
                 sideBarListPage.bar,
                 190)
+            ;(0,_navigationBar__WEBPACK_IMPORTED_MODULE_2__.updateProjectList)()
         }
     })
     bar.appendChild(addButton)
@@ -3166,6 +3170,13 @@ __webpack_require__.r(__webpack_exports__);
 const mainTab = (() => {
     const tab = document.createElement('div')
     tab.setAttribute('class', 'mainTab')
+
+    const newButton = document.createElement('button')
+    newButton.setAttribute('class', 'button newButton mobileButton')
+    newButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="buttonSVG" width="24" height="24"' +
+        ' viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"' +
+        ' stroke-linejoin="round" display="block" id="Plus"><path d="M12 20v-8m0 0V4m0 8h8m-8 0H4"/></svg>'
+
 
     return { tab }
 })()
@@ -3265,12 +3276,25 @@ const widgetTab = (() => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "navBar": () => (/* binding */ navBar)
+/* harmony export */   "navBar": () => (/* binding */ navBar),
+/* harmony export */   "updateProjectList": () => (/* binding */ updateProjectList)
 /* harmony export */ });
 /* harmony import */ var _elements__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var _items__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 
 
+
+const updateProjectList = () => {
+    const projects = [..._items__WEBPACK_IMPORTED_MODULE_1__.items.projectList()]
+    const projectList = document.querySelector('#projectSelector')
+    projectList.innerHTML = ''
+    for (let i = 0; i < projects.length; i++) {
+        const option = document.createElement('option')
+        option.setAttribute('value', `${projects[i].toLowerCase()}`)
+        option.innerHTML = `${projects[i]}`
+        projectList.appendChild(option)
+    }
+}
 
 const navBar = (() => {
     const nav = document.createElement('nav')
@@ -3286,21 +3310,13 @@ const navBar = (() => {
     projectSwitcher.setAttribute('name', 'projectSelector')
     const projectList = document.createElement('select')
     projectList.setAttribute('id', 'projectSelector')
-    const projects = [..._items__WEBPACK_IMPORTED_MODULE_1__.items.projectList()]
-    for (let i = 0; i < projects.length; i++) {
-        const option = document.createElement('option')
-        option.setAttribute('value', `${projects[i].toLowerCase()}`)
-        option.innerHTML = `${projects[i]}`
-        projectList.appendChild(option)
-    }
-
     nav.appendChild(name)
     projectContainer.appendChild(projectLabel)
     projectContainer.appendChild(projectList)
     nav.appendChild(projectContainer)
-
     return { nav }
 })()
+
 
 
 
@@ -3379,6 +3395,7 @@ __webpack_require__.r(__webpack_exports__);
 const loadPage = (() => {
     const content = document.querySelector('.content')
     content.appendChild(_navigationBar__WEBPACK_IMPORTED_MODULE_2__.navBar.nav)
+    ;(0,_navigationBar__WEBPACK_IMPORTED_MODULE_2__.updateProjectList)()
     const mainElements = document.createElement('div')
     mainElements.setAttribute('class', 'mainElements')
     const sideContainer = document.createElement('div')

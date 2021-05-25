@@ -1,5 +1,6 @@
 import { switchElements, emptyInputs, refreshItems } from "./elements"
 import { items } from './items'
+import { updateProjectList } from './navigationBar'
 
 const sideBarListPage = (() => {
     const bar = document.createElement('section')
@@ -61,6 +62,7 @@ const sideBarItem = (nameIn, idIn, projectIn, colorIn) => {
         const list = document.querySelector('#projectSelector')
         const value = list.options[list.selectedIndex].text
         refreshItems(value)
+        updateProjectList()
     })
 
     buttonContainer.appendChild(editButton)
@@ -147,6 +149,7 @@ const sideBarAddPage = (() => {
             switchElements(document.querySelector('.sideBar'),
                 sideBarListPage.bar,
                 190)
+            updateProjectList()
         }
     })
     bar.appendChild(addButton)

@@ -1,12 +1,13 @@
 import { refreshItems } from './elements'
 import { sideBarListPage } from './sideBar'
-import { navBar } from './navigationBar'
+import { navBar, updateProjectList } from './navigationBar'
 import { mainTab } from './mainPage'
 import { widgetTab } from './widgets'
 
 const loadPage = (() => {
     const content = document.querySelector('.content')
     content.appendChild(navBar.nav)
+    updateProjectList()
     const mainElements = document.createElement('div')
     mainElements.setAttribute('class', 'mainElements')
     const sideContainer = document.createElement('div')
