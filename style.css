@@ -45,19 +45,10 @@ nav {
     z-index: 20;
 }
 
-nav button {
-    background-color: rgba(0, 0, 0, 0);
+nav div select {
     outline: none;
     border: none;
-}
-
-nav button svg {
-    color: rgb(255, 255, 255);
-    transition-duration: 0.3s;
-}
-
-nav button svg:hover {
-    transform: scale(1.1) rotate(45deg);
+    border-radius: 5px;
 }
 
 .sideContainer {
@@ -140,9 +131,12 @@ input:invalid {
 
 .mainTab {
     position: relative;
-    display: inline-block;
-    height: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    align-content: flex-start;
+    max-height: 100%;
     width: 100%;
+    overflow: auto;
     z-index: 18;
 }
 
