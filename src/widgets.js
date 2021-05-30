@@ -1,6 +1,7 @@
-import { items } from './items'
+import { format } from "date-fns"
+import { items } from "./items"
 
-const widgetTab = (() => {
+const widgets = (() => {
 
     const calendarWidget = (() => {
         const calendar = document.createElement('div')
@@ -18,15 +19,22 @@ const widgetTab = (() => {
     })()
 
     const calendarRender = eventList => {
-        const calendarEl = document.getElementById('calendar');
-        const calendar = new FullCalendar.Calendar(calendarEl, {
+        const calendarEL = document.getElementById('calendar')
+        const calendar = new FullCalendar.Calendar(calendarEL, {
             headerToolbar: {
                 left: 'prev',
                 center: 'title',
                 right: 'next'
             },
+            editable: true,
+            eventDrop: function(element) {
+                const startDate = format(new Date(element.event.start), 'yyyy-MM-dd-HH-mm')
+                const endDate = format(new Date(element.event.end), 'yyyy-MM-dd-HH-mm')
+                const id = element.event.id
+                items.syncCalendarDrop(id, startDate, endDate.substring(0, 4) == '1970' ? startDate : endDate)
+            },
+            dayMaxEventRows: 3,
             initialView: 'dayGridMonth',
-            eventLimit: true,
             events: eventList,
         });
         calendar.render();
@@ -36,4 +44,4 @@ const widgetTab = (() => {
     return { widgetBar, calendarWidget, calendarRender }
 })()
 
-export { widgetTab }
+export { widgets }

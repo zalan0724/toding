@@ -1,4 +1,6 @@
 import { format } from 'date-fns'
+import { items } from './items'
+import { refreshItems } from './elements'
 
 const mainTab = (() => {
     const tab = document.createElement('div')
@@ -15,6 +17,10 @@ const mainTab = (() => {
 })()
 
 const mainItems = (itemName, id, project, startDate, endDate, description, color) => {
+    const equals = (first, second) =>
+        first.length === second.length &&
+        first.every((v, i) => v === second[i]);
+
     const card = document.createElement('div')
     card.setAttribute('class', `card ${project}`)
     card.setAttribute('id', id)
@@ -30,24 +36,57 @@ const mainItems = (itemName, id, project, startDate, endDate, description, color
     descriptionText.innerHTML = `${description}`
     const dates = document.createElement('span')
     dates.setAttribute('class', 'cardDates cardElement')
-    dates.innerHTML = `Start: ${format(new Date(
-        startDate[0],
-        startDate[1],
-        startDate[2],
-        startDate[3],
-        startDate[4]),
-        'yyyy. MM. dd, HH:mm')}
-     <br /> End: ${format(new Date(endDate[0], 
-        endDate[1], 
-        endDate[2], 
-        endDate[3], 
-        endDate[4]), 
-        'yyyy. MM. dd, HH:mm')}`
+
+    if (!equals(startDate, endDate)) {
+        dates.innerHTML = `Start: ${format(new Date(
+            startDate[0],
+            startDate[1],
+            startDate[2],
+            startDate[3],
+            startDate[4]),
+            'yyyy. MM. dd, HH:mm')} 
+        <br /> End: ${format(new Date(
+            endDate[0], 
+            endDate[1], 
+            endDate[2], 
+            endDate[3], 
+            endDate[4]), 
+            'yyyy. MM. dd, HH:mm')}`
+    } else if (equals(startDate, endDate)) {
+        dates.innerHTML = `Date: ${format(new Date(
+            startDate[0],
+            startDate[1],
+            startDate[2],
+            startDate[3],
+            startDate[4]),
+            'yyyy. MM. dd, HH:mm')}`
+    }
+
+    const dropLayer = document.createElement('div')
+    dropLayer.setAttribute('id', id)
+    dropLayer.setAttribute('class', 'dropLayer')
+    const orderList = document.querySelector('#orderSelector')
+    if (orderList.options[orderList.selectedIndex].value == 'custom') {
+        dropLayer.setAttribute('draggable', 'true')
+        dropLayer.setAttribute('ondragover', 'event.preventDefault()')
+        dropLayer.addEventListener('dragstart', event => {
+            event.dataTransfer.setData("ID", event.target.id)
+        })
+        dropLayer.addEventListener('drop', event => {
+            const selectedID = event.dataTransfer.getData("ID")
+            const targetID = event.target.id
+            console.log(`${selectedID} ${targetID}`)
+            items.insertDropItem(selectedID, targetID)
+            event.preventDefault()
+            refreshItems()
+        })
+    }
 
     card.appendChild(name)
     card.appendChild(projectName)
     card.appendChild(descriptionText)
     card.appendChild(dates)
+    card.appendChild(dropLayer)
 
     return card
 }

@@ -1,8 +1,8 @@
+import { widgets } from './widgets'
 import { refreshItems } from './elements'
 import { sideBarListPage } from './sideBar'
 import { navBar, updateProjectList } from './navigationBar'
 import { mainTab } from './mainPage'
-import { widgetTab } from './widgets'
 
 const loadPage = (() => {
     const content = document.querySelector('.content')
@@ -15,13 +15,12 @@ const loadPage = (() => {
     sideContainer.appendChild(sideBarListPage.bar)
     mainElements.appendChild(sideContainer)
     mainElements.appendChild(mainTab.tab)
-    mainElements.appendChild(widgetTab.widgetBar.bar)
+    mainElements.appendChild(widgets.widgetBar.bar)
     content.appendChild(mainElements)
-    refreshItems("All")
+    refreshItems()
 
-    const list = document.querySelector('#projectSelector')
-    list.addEventListener('input', () => {
-        const value = list.options[list.selectedIndex].text
-        refreshItems(value)
-    })
+    const navInputList = document.querySelectorAll('.settingContainer select')
+    navInputList.forEach(element => element.addEventListener('input', () => {
+        refreshItems()
+    }))
 })()

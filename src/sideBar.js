@@ -46,11 +46,12 @@ const sideBarItem = (nameIn, idIn, projectIn, colorIn) => {
     const buttonContainer = document.createElement('div')
     buttonContainer.setAttribute('class', 'buttonContainer')
     const editButton = document.createElement('button')
-    editButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" ' +
+    editButton.innerHTML = ''
+        /*'<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" ' +
         'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ' +
         'display="block" id="Edit"><path d="M16.474 5.408l2.118 2.117m-.756-3.982L12.109 9.27a2.118 2.118 0 ' +
         '00-.58 1.082L11 13l2.648-.53c.41-.082.786-.283 1.082-.579l5.727-5.727a1.853 1.853 0 10-2.621-2.621z"/>' +
-        '<path d="M19 15v3a2 2 0 01-2 2H6a2 2 0 01-2-2V7a2 2 0 012-2h3"/></svg>'
+        '<path d="M19 15v3a2 2 0 01-2 2H6a2 2 0 01-2-2V7a2 2 0 012-2h3"/></svg>'*/
     const deleteButton = document.createElement('button')
     deleteButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"' +
         'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"' +
@@ -59,9 +60,7 @@ const sideBarItem = (nameIn, idIn, projectIn, colorIn) => {
         '<path d="M2 6h20"/><path d="M10 11v5"/><path d="M14 11v5"/></svg>'
     deleteButton.addEventListener('click', () => {
         items.removeItem(idIn)
-        const list = document.querySelector('#projectSelector')
-        const value = list.options[list.selectedIndex].text
-        refreshItems(value)
+        refreshItems()
         updateProjectList()
     })
 
@@ -80,6 +79,7 @@ const sideBarAddPage = (() => {
     bar.appendChild(title)
     const inputs = ['Name', 'Project', 'Starting Date', 'Ending Date', 'Description', 'Color']
     const types = ['text', 'text', 'date', 'date', 'text', 'color']
+    const require = [true, true, true, false, false, true]
     for (let i = 0; i < inputs.length; i++) {
         const inputLabel = document.createElement('label')
         inputLabel.setAttribute('for', `${inputs[i].replace(' ','')}`)
@@ -91,7 +91,7 @@ const sideBarAddPage = (() => {
         inputBox.setAttribute('id', `${'add'+inputs[i].replace(' ','')}`)
         inputBox.setAttribute('name', `${inputs[i].replace(' ','')}`)
         inputBox.setAttribute('type', `${types[i]}`)
-        inputBox.required = true
+        inputBox.required = require[i]
         if (types[i] == 'color') {
             inputBox.defaultValue = '#3961e6'
         }
@@ -130,10 +130,7 @@ const sideBarAddPage = (() => {
         if (name.checkValidity() &&
             project.checkValidity() &&
             startDate.checkValidity() &&
-            endDate.checkValidity() &&
             startingTime.checkValidity() &&
-            endingTime.checkValidity() &&
-            description.checkValidity() &&
             color.checkValidity()) {
 
             items.addItem(
@@ -141,7 +138,7 @@ const sideBarAddPage = (() => {
                 project.value,
                 startDate.value,
                 startingTime.value,
-                endDate.value,
+                endDate.value == '' ? startDate.value : endDate.value,
                 endingTime.value,
                 description.value,
                 color.value)

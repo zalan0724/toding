@@ -1,8 +1,8 @@
 import { items } from "./items"
-import { sideBarListPage, sideBarAddPage, sideBarItem } from './sideBar'
-import { mainTab, mainItems } from './mainPage'
-import { widgetTab } from './widgets'
-import { intervalToDuration } from "date-fns"
+import { sideBarListPage, sideBarItem } from './sideBar'
+import { mainItems } from './mainPage'
+import { widgets } from './widgets'
+
 
 const switchElements = (fromElement, toElement, duration) => {
     fromElement.classList.toggle('fadeAway')
@@ -13,9 +13,7 @@ const switchElements = (fromElement, toElement, duration) => {
         const endAnimation = setTimeout(() => {
             document.querySelector('.fadeIn').classList.toggle('fadeIn')
             if (toElement == sideBarListPage.bar) {
-                const list = document.querySelector('#projectSelector')
-                const value = list.options[list.selectedIndex].text
-                refreshItems(value)
+                refreshItems()
             }
         }, duration)
     }, duration)
@@ -23,21 +21,26 @@ const switchElements = (fromElement, toElement, duration) => {
 
 const emptyInputs = inputs => {
     inputs.forEach(input => {
-        if (input.getAttribute('type') != 'color') input.value = ''
-        else input.value = '#3961e6'
+        if (input.getAttribute('type') == 'color') input.value = '#3961e6'
+        else if (input.getAttribute('type') == 'time') input.value = '00:00'
+        else input.value = ''
     })
 }
-
-const refreshItems = project => {
-    const itemList = items.getList()
+const refreshItems = () => {
+    const orderList = document.querySelector('#orderSelector')
+    const projectList = document.querySelector('#projectSelector')
+    const selectedProject = projectList.options[projectList.selectedIndex].text
+    const selectedOrder = orderList.options[orderList.selectedIndex].value
     items.saveList()
+    const itemList = items.filteredList(selectedProject, selectedOrder)
     const sideBar = document.querySelector('.items')
     sideBar.innerHTML = ''
     const mainTab = document.querySelector('.mainTab')
     mainTab.innerHTML = ''
-        //Fill sideBar
+
+    //Fill sideBar
     for (let i = 0; i < itemList.length; i++) {
-        if (project == 'All' || project == itemList[i].project) {
+        if (selectedProject == 'All' || selectedProject == itemList[i].project) {
             sideBar.appendChild(sideBarItem(
                 itemList[i].name,
                 itemList[i].id,
@@ -53,7 +56,7 @@ const refreshItems = project => {
                 itemList[i].color))
         }
     }
-    widgetTab.calendarRender(items.intoCalendar(project))
+    widgets.calendarRender(items.intoCalendar(selectedProject))
 }
 
 export { refreshItems, emptyInputs, switchElements }

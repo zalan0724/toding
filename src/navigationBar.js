@@ -1,4 +1,3 @@
-import { refreshItems } from './elements'
 import { items } from './items'
 
 const updateProjectList = () => {
@@ -8,6 +7,7 @@ const updateProjectList = () => {
     for (let i = 0; i < projects.length; i++) {
         const option = document.createElement('option')
         option.setAttribute('value', `${projects[i].toLowerCase()}`)
+        if (i === 0) option.setAttribute('selected', 'selected')
         option.innerHTML = `${projects[i]}`
         projectList.appendChild(option)
     }
@@ -18,19 +18,44 @@ const navBar = (() => {
     nav.setAttribute('class', 'nav')
     const name = document.createElement('h1')
     name.innerHTML = 'Toding'
-    const projectContainer = document.createElement('div')
+    const settingContainer = document.createElement('div')
+    settingContainer.setAttribute('class', 'settingContainer')
+    const orderLabel = document.createElement('label')
+    orderLabel.innerHTML = 'Order: '
+    orderLabel.setAttribute('for', 'orderSelector')
+    const orderList = document.createElement('select')
+    orderList.setAttribute('id', 'orderSelector')
+    orderList.setAttribute('list', 'orderList')
+    orderList.setAttribute('name', 'orderSelector')
+    orderList.style.marginRight = '10px'
+    const inOrder = document.createElement('option')
+    inOrder.innerHTML = 'In order'
+    inOrder.setAttribute('value', '1')
+    const reversed = document.createElement('option')
+    reversed.innerHTML = 'Reversed'
+    reversed.setAttribute('value', '-1')
+    const custom = document.createElement('option')
+    custom.innerHTML = 'Custom'
+    custom.setAttribute('value', 'custom')
+    custom.setAttribute('selected', 'selected')
+    orderList.appendChild(custom)
+    orderList.appendChild(inOrder)
+    orderList.appendChild(reversed)
+
     const projectLabel = document.createElement('label')
     projectLabel.innerHTML = 'Projects: '
     projectLabel.setAttribute('for', 'projectSelector')
-    const projectSwitcher = document.createElement('input')
-    projectSwitcher.setAttribute('list', 'projectList')
-    projectSwitcher.setAttribute('name', 'projectSelector')
     const projectList = document.createElement('select')
     projectList.setAttribute('id', 'projectSelector')
+    projectList.setAttribute('list', 'projectList')
+    projectList.setAttribute('name', 'projectSelector')
+
     nav.appendChild(name)
-    projectContainer.appendChild(projectLabel)
-    projectContainer.appendChild(projectList)
-    nav.appendChild(projectContainer)
+    settingContainer.appendChild(orderLabel)
+    settingContainer.appendChild(orderList)
+    settingContainer.appendChild(projectLabel)
+    settingContainer.appendChild(projectList)
+    nav.appendChild(settingContainer)
     return { nav }
 })()
 

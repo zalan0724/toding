@@ -212,6 +212,15 @@ input:invalid {
     display: block;
 }
 
+.dropLayer {
+    display: inline-block;
+    position: absolute;
+    width: 210px;
+    height: 210px;
+    top: 0;
+    left: 0;
+}
+
 .widgetBar {
     display: inline-block;
     width: 100%;
