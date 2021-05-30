@@ -64,9 +64,30 @@ const sideBarItem = (nameIn, idIn, projectIn, colorIn) => {
         updateProjectList()
     })
 
+    const dropLayer = document.createElement('div')
+    dropLayer.setAttribute('id', idIn)
+    dropLayer.setAttribute('class', 'dropLayer')
+    const orderList = document.querySelector('#orderSelector')
+    if (orderList.options[orderList.selectedIndex].value == 'custom') {
+        dropLayer.setAttribute('draggable', 'true')
+        dropLayer.setAttribute('ondragover', 'event.preventDefault()')
+        dropLayer.addEventListener('dragstart', event => {
+            event.dataTransfer.setData("ID", event.target.id)
+        })
+        dropLayer.addEventListener('drop', event => {
+            const selectedID = event.dataTransfer.getData("ID")
+            const targetID = event.target.id
+            console.log(`${selectedID} ${targetID}`)
+            items.insertDropItem(selectedID, targetID)
+            event.preventDefault()
+            refreshItems()
+        })
+    }
+
     buttonContainer.appendChild(editButton)
     buttonContainer.appendChild(deleteButton)
     itemBox.appendChild(buttonContainer)
+    itemBox.appendChild(dropLayer)
 
     return itemBox
 }

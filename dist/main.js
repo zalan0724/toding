@@ -9,8 +9,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "widgets": () => (/* binding */ widgets)
 /* harmony export */ });
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
-/* harmony import */ var _items__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7);
+/* harmony import */ var _items__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 
 
 
@@ -65,88 +65,11 @@ const widgets = (() => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "refreshItems": () => (/* binding */ refreshItems),
-/* harmony export */   "emptyInputs": () => (/* binding */ emptyInputs),
-/* harmony export */   "switchElements": () => (/* binding */ switchElements)
-/* harmony export */ });
-/* harmony import */ var _items__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
-/* harmony import */ var _sideBar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36);
-/* harmony import */ var _mainPage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(38);
-/* harmony import */ var _widgets__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(1);
-
-
-
-
-
-
-const switchElements = (fromElement, toElement, duration) => {
-    fromElement.classList.toggle('fadeAway')
-    const switchAnimation = setTimeout(() => {
-        fromElement.classList.toggle('fadeAway')
-        toElement.classList.toggle('fadeIn')
-        fromElement.parentNode.replaceChild(toElement, fromElement)
-        const endAnimation = setTimeout(() => {
-            document.querySelector('.fadeIn').classList.toggle('fadeIn')
-            if (toElement == _sideBar__WEBPACK_IMPORTED_MODULE_1__.sideBarListPage.bar) {
-                refreshItems()
-            }
-        }, duration)
-    }, duration)
-}
-
-const emptyInputs = inputs => {
-    inputs.forEach(input => {
-        if (input.getAttribute('type') == 'color') input.value = '#3961e6'
-        else if (input.getAttribute('type') == 'time') input.value = '00:00'
-        else input.value = ''
-    })
-}
-const refreshItems = () => {
-    const orderList = document.querySelector('#orderSelector')
-    const projectList = document.querySelector('#projectSelector')
-    const selectedProject = projectList.options[projectList.selectedIndex].text
-    const selectedOrder = orderList.options[orderList.selectedIndex].value
-    _items__WEBPACK_IMPORTED_MODULE_0__.items.saveList()
-    const itemList = _items__WEBPACK_IMPORTED_MODULE_0__.items.filteredList(selectedProject, selectedOrder)
-    const sideBar = document.querySelector('.items')
-    sideBar.innerHTML = ''
-    const mainTab = document.querySelector('.mainTab')
-    mainTab.innerHTML = ''
-
-    //Fill sideBar
-    for (let i = 0; i < itemList.length; i++) {
-        if (selectedProject == 'All' || selectedProject == itemList[i].project) {
-            sideBar.appendChild((0,_sideBar__WEBPACK_IMPORTED_MODULE_1__.sideBarItem)(
-                itemList[i].name,
-                itemList[i].id,
-                itemList[i].project,
-                itemList[i].color))
-            mainTab.appendChild((0,_mainPage__WEBPACK_IMPORTED_MODULE_2__.mainItems)(
-                itemList[i].name,
-                itemList[i].id,
-                itemList[i].project,
-                itemList[i].startDate,
-                itemList[i].endDate,
-                itemList[i].description,
-                itemList[i].color))
-        }
-    }
-    _widgets__WEBPACK_IMPORTED_MODULE_3__.widgets.calendarRender(_items__WEBPACK_IMPORTED_MODULE_0__.items.intoCalendar(selectedProject))
-}
-
-
-
-/***/ }),
-/* 3 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "items": () => (/* binding */ items)
 /* harmony export */ });
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7);
 /* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(39);
-/* harmony import */ var _elements__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var _elements__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
 
 
 
@@ -329,23 +252,489 @@ const items = (() => {
 
 
 /***/ }),
+/* 3 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "refreshItems": () => (/* binding */ refreshItems),
+/* harmony export */   "emptyInputs": () => (/* binding */ emptyInputs),
+/* harmony export */   "switchElements": () => (/* binding */ switchElements)
+/* harmony export */ });
+/* harmony import */ var _items__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var _sideBar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
+/* harmony import */ var _mainPage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(6);
+/* harmony import */ var _widgets__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(1);
+
+
+
+
+
+
+const switchElements = (fromElement, toElement, duration) => {
+    fromElement.classList.toggle('fadeAway')
+    const switchAnimation = setTimeout(() => {
+        fromElement.classList.toggle('fadeAway')
+        toElement.classList.toggle('fadeIn')
+        fromElement.parentNode.replaceChild(toElement, fromElement)
+        const endAnimation = setTimeout(() => {
+            document.querySelector('.fadeIn').classList.toggle('fadeIn')
+            if (toElement == _sideBar__WEBPACK_IMPORTED_MODULE_1__.sideBarListPage.bar) {
+                refreshItems()
+            }
+        }, duration)
+    }, duration)
+}
+
+const emptyInputs = inputs => {
+    inputs.forEach(input => {
+        if (input.getAttribute('type') == 'color') input.value = '#3961e6'
+        else if (input.getAttribute('type') == 'time') input.value = '00:00'
+        else input.value = ''
+    })
+}
+const refreshItems = () => {
+    const orderList = document.querySelector('#orderSelector')
+    const projectList = document.querySelector('#projectSelector')
+    const selectedProject = projectList.options[projectList.selectedIndex].text
+    const selectedOrder = orderList.options[orderList.selectedIndex].value
+    _items__WEBPACK_IMPORTED_MODULE_0__.items.saveList()
+    const itemList = _items__WEBPACK_IMPORTED_MODULE_0__.items.filteredList(selectedProject, selectedOrder)
+    const sideBar = document.querySelector('.items')
+    sideBar.innerHTML = ''
+    const mainTab = document.querySelector('.mainTab')
+    mainTab.innerHTML = ''
+
+    //Fill sideBar
+    for (let i = 0; i < itemList.length; i++) {
+        if (selectedProject == 'All' || selectedProject == itemList[i].project) {
+            sideBar.appendChild((0,_sideBar__WEBPACK_IMPORTED_MODULE_1__.sideBarItem)(
+                itemList[i].name,
+                itemList[i].id,
+                itemList[i].project,
+                itemList[i].color))
+            mainTab.appendChild((0,_mainPage__WEBPACK_IMPORTED_MODULE_2__.mainItems)(
+                itemList[i].name,
+                itemList[i].id,
+                itemList[i].project,
+                itemList[i].startDate,
+                itemList[i].endDate,
+                itemList[i].description,
+                itemList[i].color))
+        }
+    }
+    _widgets__WEBPACK_IMPORTED_MODULE_3__.widgets.calendarRender(_items__WEBPACK_IMPORTED_MODULE_0__.items.intoCalendar(selectedProject))
+}
+
+
+
+/***/ }),
 /* 4 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "sideBarListPage": () => (/* binding */ sideBarListPage),
+/* harmony export */   "sideBarAddPage": () => (/* binding */ sideBarAddPage),
+/* harmony export */   "sideBarItem": () => (/* binding */ sideBarItem)
+/* harmony export */ });
+/* harmony import */ var _elements__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
+/* harmony import */ var _items__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
+/* harmony import */ var _navigationBar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5);
+
+
+
+
+const sideBarListPage = (() => {
+    const bar = document.createElement('section')
+    bar.setAttribute('class', 'sideBar')
+    const title = document.createElement('h2')
+    title.innerHTML = 'Your tasks'
+    title.setAttribute('class', 'sideBarTitle')
+    const items = document.createElement('div')
+    items.setAttribute('class', 'items')
+    const newButton = document.createElement('button')
+    newButton.setAttribute('class', 'button newButton')
+    newButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="buttonSVG" width="24" height="24"' +
+        ' viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"' +
+        ' stroke-linejoin="round" display="block" id="Plus"><path d="M12 20v-8m0 0V4m0 8h8m-8 0H4"/></svg>'
+
+    newButton.addEventListener('click', () => {
+        ;(0,_elements__WEBPACK_IMPORTED_MODULE_0__.switchElements)(document.querySelector('.sideBar'),
+            sideBarAddPage.bar,
+            190)
+    })
+    bar.appendChild(title)
+    bar.appendChild(items)
+    bar.appendChild(newButton)
+
+    return { bar }
+})()
+
+const sideBarItem = (nameIn, idIn, projectIn, colorIn) => {
+    const itemBox = document.createElement('div')
+    itemBox.setAttribute('id', `${idIn}`)
+    itemBox.setAttribute('class', 'listItem')
+    itemBox.style.borderBottom = `1px solid ${colorIn}`
+    const textConatiner = document.createElement('div')
+    textConatiner.setAttribute('class', 'textContainer')
+    const name = document.createElement('h3')
+    name.innerHTML = `${nameIn}<br/>`
+    const project = document.createElement('span')
+    project.innerHTML = `${projectIn}`
+    textConatiner.appendChild(name)
+    textConatiner.appendChild(project)
+    itemBox.appendChild(textConatiner)
+
+    const buttonContainer = document.createElement('div')
+    buttonContainer.setAttribute('class', 'buttonContainer')
+    const editButton = document.createElement('button')
+    editButton.innerHTML = ''
+        /*'<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" ' +
+        'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ' +
+        'display="block" id="Edit"><path d="M16.474 5.408l2.118 2.117m-.756-3.982L12.109 9.27a2.118 2.118 0 ' +
+        '00-.58 1.082L11 13l2.648-.53c.41-.082.786-.283 1.082-.579l5.727-5.727a1.853 1.853 0 10-2.621-2.621z"/>' +
+        '<path d="M19 15v3a2 2 0 01-2 2H6a2 2 0 01-2-2V7a2 2 0 012-2h3"/></svg>'*/
+    const deleteButton = document.createElement('button')
+    deleteButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"' +
+        'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"' +
+        ' display="block" id="TrashCan"><path d="M4 6h16l-1.58 14.22A2 2 0 0116.432 22H7.568a2 2 0 ' +
+        '01-1.988-1.78L4 6z"/><path d="M7.345 3.147A2 2 0 019.154 2h5.692a2 2 0 011.81 1.147L18 6H6l1.345-2.853z"/>' +
+        '<path d="M2 6h20"/><path d="M10 11v5"/><path d="M14 11v5"/></svg>'
+    deleteButton.addEventListener('click', () => {
+        _items__WEBPACK_IMPORTED_MODULE_1__.items.removeItem(idIn)
+        ;(0,_elements__WEBPACK_IMPORTED_MODULE_0__.refreshItems)()
+        ;(0,_navigationBar__WEBPACK_IMPORTED_MODULE_2__.updateProjectList)()
+    })
+
+    const dropLayer = document.createElement('div')
+    dropLayer.setAttribute('id', idIn)
+    dropLayer.setAttribute('class', 'dropLayer')
+    const orderList = document.querySelector('#orderSelector')
+    if (orderList.options[orderList.selectedIndex].value == 'custom') {
+        dropLayer.setAttribute('draggable', 'true')
+        dropLayer.setAttribute('ondragover', 'event.preventDefault()')
+        dropLayer.addEventListener('dragstart', event => {
+            event.dataTransfer.setData("ID", event.target.id)
+        })
+        dropLayer.addEventListener('drop', event => {
+            const selectedID = event.dataTransfer.getData("ID")
+            const targetID = event.target.id
+            console.log(`${selectedID} ${targetID}`)
+            _items__WEBPACK_IMPORTED_MODULE_1__.items.insertDropItem(selectedID, targetID)
+            event.preventDefault()
+            ;(0,_elements__WEBPACK_IMPORTED_MODULE_0__.refreshItems)()
+        })
+    }
+
+    buttonContainer.appendChild(editButton)
+    buttonContainer.appendChild(deleteButton)
+    itemBox.appendChild(buttonContainer)
+    itemBox.appendChild(dropLayer)
+
+    return itemBox
+}
+
+const sideBarAddPage = (() => {
+    const bar = document.createElement('section')
+    bar.setAttribute('class', 'sideBar')
+    const title = document.createElement('h2')
+    title.innerHTML = 'Adding'
+    bar.appendChild(title)
+    const inputs = ['Name', 'Project', 'Starting Date', 'Ending Date', 'Description', 'Color']
+    const types = ['text', 'text', 'date', 'date', 'text', 'color']
+    const require = [true, true, true, false, false, true]
+    for (let i = 0; i < inputs.length; i++) {
+        const inputLabel = document.createElement('label')
+        inputLabel.setAttribute('for', `${inputs[i].replace(' ','')}`)
+        const inputName = document.createElement('h3')
+        inputName.style.marginBottom = '5px'
+        inputName.innerHTML = `${inputs[i]}`
+        const inputBox = document.createElement('input')
+        inputBox.setAttribute('class', 'inputBox')
+        inputBox.setAttribute('id', `${'add'+inputs[i].replace(' ','')}`)
+        inputBox.setAttribute('name', `${inputs[i].replace(' ','')}`)
+        inputBox.setAttribute('type', `${types[i]}`)
+        inputBox.required = require[i]
+        if (types[i] == 'color') {
+            inputBox.defaultValue = '#3961e6'
+        }
+        inputLabel.appendChild(inputName)
+        bar.appendChild(inputLabel)
+        bar.appendChild(inputBox)
+        if (types[i] == 'date') {
+            const inputTimeBox = document.createElement('input')
+            inputTimeBox.setAttribute('class', 'inputBox')
+            inputTimeBox.setAttribute('id', `${'addTime'+inputs[i].replace(' ','')}`)
+            inputTimeBox.setAttribute('name', `${inputs[i].replace(' ','')}`)
+            inputTimeBox.setAttribute('type', 'time')
+            inputTimeBox.required = true
+            inputTimeBox.value = '00:00'
+            bar.appendChild(inputTimeBox)
+        }
+
+    }
+
+    //Add button
+
+    const addButton = document.createElement('button')
+    addButton.setAttribute('class', 'button addButton')
+    addButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"' +
+        'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"' +
+        ' display="block" id="Check"><path d="M4 12l6 6L20 6"/></svg>'
+    addButton.addEventListener('click', () => {
+        const name = document.querySelector('#addName')
+        const project = document.querySelector('#addProject')
+        const startDate = document.querySelector('#addStartingDate')
+        const endDate = document.querySelector('#addEndingDate')
+        const startingTime = document.querySelector('#addTimeStartingDate')
+        const endingTime = document.querySelector('#addTimeEndingDate')
+        const description = document.querySelector('#addDescription')
+        const color = document.querySelector('#addColor')
+        if (name.checkValidity() &&
+            project.checkValidity() &&
+            startDate.checkValidity() &&
+            startingTime.checkValidity() &&
+            color.checkValidity()) {
+
+            _items__WEBPACK_IMPORTED_MODULE_1__.items.addItem(
+                name.value,
+                project.value,
+                startDate.value,
+                startingTime.value,
+                endDate.value == '' ? startDate.value : endDate.value,
+                endingTime.value,
+                description.value,
+                color.value)
+            ;(0,_elements__WEBPACK_IMPORTED_MODULE_0__.emptyInputs)(document.querySelectorAll('.sideBar input'))
+            ;(0,_elements__WEBPACK_IMPORTED_MODULE_0__.switchElements)(document.querySelector('.sideBar'),
+                sideBarListPage.bar,
+                190)
+            ;(0,_navigationBar__WEBPACK_IMPORTED_MODULE_2__.updateProjectList)()
+        }
+    })
+    bar.appendChild(addButton)
+
+    //Cancel button
+
+    const cancelButton = document.createElement('button')
+    cancelButton.setAttribute('class', 'button cancelButton')
+    cancelButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"' +
+        ' fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"' +
+        ' display="block" id="Cross" style="width: 75%; height: 75%"><path d="M20 20L4 4m16 0L4 20"/></svg>'
+    cancelButton.addEventListener('click', () => {
+        ;(0,_elements__WEBPACK_IMPORTED_MODULE_0__.emptyInputs)(document.querySelectorAll('.sideBar input'))
+        ;(0,_elements__WEBPACK_IMPORTED_MODULE_0__.switchElements)(document.querySelector('.sideBar'),
+            sideBarListPage.bar,
+            190)
+    })
+    bar.appendChild(cancelButton)
+
+    return { bar }
+})()
+
+
+
+
+/***/ }),
+/* 5 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "navBar": () => (/* binding */ navBar),
+/* harmony export */   "updateProjectList": () => (/* binding */ updateProjectList)
+/* harmony export */ });
+/* harmony import */ var _items__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+
+
+const updateProjectList = () => {
+    const projects = [..._items__WEBPACK_IMPORTED_MODULE_0__.items.projectList()]
+    const projectList = document.querySelector('#projectSelector')
+    projectList.innerHTML = ''
+    for (let i = 0; i < projects.length; i++) {
+        const option = document.createElement('option')
+        option.setAttribute('value', `${projects[i].toLowerCase()}`)
+        if (i === 0) option.setAttribute('selected', 'selected')
+        option.innerHTML = `${projects[i]}`
+        projectList.appendChild(option)
+    }
+}
+
+const navBar = (() => {
+    const nav = document.createElement('nav')
+    nav.setAttribute('class', 'nav')
+    const name = document.createElement('h1')
+    name.innerHTML = 'Toding'
+    const settingContainer = document.createElement('div')
+    settingContainer.setAttribute('class', 'settingContainer')
+    const orderLabel = document.createElement('label')
+    orderLabel.innerHTML = 'Order: '
+    orderLabel.setAttribute('for', 'orderSelector')
+    const orderList = document.createElement('select')
+    orderList.setAttribute('id', 'orderSelector')
+    orderList.setAttribute('list', 'orderList')
+    orderList.setAttribute('name', 'orderSelector')
+    orderList.style.marginRight = '10px'
+    const inOrder = document.createElement('option')
+    inOrder.innerHTML = 'In order'
+    inOrder.setAttribute('value', '1')
+    const reversed = document.createElement('option')
+    reversed.innerHTML = 'Reversed'
+    reversed.setAttribute('value', '-1')
+    const custom = document.createElement('option')
+    custom.innerHTML = 'Custom'
+    custom.setAttribute('value', 'custom')
+    custom.setAttribute('selected', 'selected')
+    orderList.appendChild(custom)
+    orderList.appendChild(inOrder)
+    orderList.appendChild(reversed)
+
+    const projectLabel = document.createElement('label')
+    projectLabel.innerHTML = 'Projects: '
+    projectLabel.setAttribute('for', 'projectSelector')
+    const projectList = document.createElement('select')
+    projectList.setAttribute('id', 'projectSelector')
+    projectList.setAttribute('list', 'projectList')
+    projectList.setAttribute('name', 'projectSelector')
+
+    nav.appendChild(name)
+    settingContainer.appendChild(orderLabel)
+    settingContainer.appendChild(orderList)
+    settingContainer.appendChild(projectLabel)
+    settingContainer.appendChild(projectList)
+    nav.appendChild(settingContainer)
+    return { nav }
+})()
+
+
+
+
+/***/ }),
+/* 6 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "mainTab": () => (/* binding */ mainTab),
+/* harmony export */   "mainItems": () => (/* binding */ mainItems)
+/* harmony export */ });
+/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7);
+/* harmony import */ var _items__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var _elements__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
+
+
+
+
+const mainTab = (() => {
+    const tab = document.createElement('div')
+    tab.setAttribute('class', 'mainTab')
+
+    const newButton = document.createElement('button')
+    newButton.setAttribute('class', 'button newButton mobileButton')
+    newButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="buttonSVG" width="24" height="24"' +
+        ' viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"' +
+        ' stroke-linejoin="round" display="block" id="Plus"><path d="M12 20v-8m0 0V4m0 8h8m-8 0H4"/></svg>'
+
+
+    return { tab }
+})()
+
+const mainItems = (itemName, id, project, startDate, endDate, description, color) => {
+    const equals = (first, second) =>
+        first.length === second.length &&
+        first.every((v, i) => v === second[i]);
+
+    const card = document.createElement('div')
+    card.setAttribute('class', `card ${project}`)
+    card.setAttribute('id', id)
+    card.style.border = `1px solid ${color}85`
+    const name = document.createElement('h3')
+    name.setAttribute('class', 'cardName cardElement')
+    name.innerHTML = `${itemName}`
+    const projectName = document.createElement('span')
+    projectName.setAttribute('class', 'cardProject cardElement')
+    projectName.innerHTML = `${project}`
+    const descriptionText = document.createElement('span')
+    descriptionText.setAttribute('class', 'cardDescription cardElement')
+    descriptionText.innerHTML = `${description}`
+    const dates = document.createElement('span')
+    dates.setAttribute('class', 'cardDates cardElement')
+
+    if (!equals(startDate, endDate)) {
+        dates.innerHTML = `Start: ${(0,date_fns__WEBPACK_IMPORTED_MODULE_2__.default)(new Date(
+            startDate[0],
+            startDate[1],
+            startDate[2],
+            startDate[3],
+            startDate[4]),
+            'yyyy. MM. dd, HH:mm')} 
+        <br /> End: ${(0,date_fns__WEBPACK_IMPORTED_MODULE_2__.default)(new Date(
+            endDate[0], 
+            endDate[1], 
+            endDate[2], 
+            endDate[3], 
+            endDate[4]), 
+            'yyyy. MM. dd, HH:mm')}`
+    } else if (equals(startDate, endDate)) {
+        dates.innerHTML = `Date: ${(0,date_fns__WEBPACK_IMPORTED_MODULE_2__.default)(new Date(
+            startDate[0],
+            startDate[1],
+            startDate[2],
+            startDate[3],
+            startDate[4]),
+            'yyyy. MM. dd, HH:mm')}`
+    }
+
+    const dropLayer = document.createElement('div')
+    dropLayer.setAttribute('id', id)
+    dropLayer.setAttribute('class', 'dropLayer')
+    const orderList = document.querySelector('#orderSelector')
+    if (orderList.options[orderList.selectedIndex].value == 'custom') {
+        dropLayer.setAttribute('draggable', 'true')
+        dropLayer.setAttribute('ondragover', 'event.preventDefault()')
+        dropLayer.addEventListener('dragstart', event => {
+            event.dataTransfer.setData("ID", event.target.id)
+        })
+        dropLayer.addEventListener('drop', event => {
+            const selectedID = event.dataTransfer.getData("ID")
+            const targetID = event.target.id
+            console.log(`${selectedID} ${targetID}`)
+            _items__WEBPACK_IMPORTED_MODULE_0__.items.insertDropItem(selectedID, targetID)
+            event.preventDefault()
+            ;(0,_elements__WEBPACK_IMPORTED_MODULE_1__.refreshItems)()
+        })
+    }
+
+    card.appendChild(name)
+    card.appendChild(projectName)
+    card.appendChild(descriptionText)
+    card.appendChild(dates)
+    card.appendChild(dropLayer)
+
+    return card
+}
+
+
+
+/***/ }),
+/* 7 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ format)
 /* harmony export */ });
-/* harmony import */ var _isValid_index_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(18);
-/* harmony import */ var _locale_en_US_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
-/* harmony import */ var _subMilliseconds_index_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(20);
-/* harmony import */ var _toDate_index_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(17);
-/* harmony import */ var _lib_format_formatters_index_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(23);
-/* harmony import */ var _lib_format_longFormatters_index_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(22);
-/* harmony import */ var _lib_getTimezoneOffsetInMilliseconds_index_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(19);
-/* harmony import */ var _lib_protectedTokens_index_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(35);
-/* harmony import */ var _lib_toInteger_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(16);
-/* harmony import */ var _lib_requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony import */ var _isValid_index_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(21);
+/* harmony import */ var _locale_en_US_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(9);
+/* harmony import */ var _subMilliseconds_index_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(23);
+/* harmony import */ var _toDate_index_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(20);
+/* harmony import */ var _lib_format_formatters_index_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(26);
+/* harmony import */ var _lib_format_longFormatters_index_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(25);
+/* harmony import */ var _lib_getTimezoneOffsetInMilliseconds_index_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(22);
+/* harmony import */ var _lib_protectedTokens_index_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(38);
+/* harmony import */ var _lib_toInteger_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(19);
+/* harmony import */ var _lib_requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
 
 
 
@@ -781,7 +1170,7 @@ function cleanEscapedString(input) {
 }
 
 /***/ }),
-/* 5 */
+/* 8 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -795,18 +1184,18 @@ function requiredArgs(required, args) {
 }
 
 /***/ }),
-/* 6 */
+/* 9 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _lib_formatDistance_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7);
-/* harmony import */ var _lib_formatLong_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(8);
-/* harmony import */ var _lib_formatRelative_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(10);
-/* harmony import */ var _lib_localize_index_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(11);
-/* harmony import */ var _lib_match_index_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(13);
+/* harmony import */ var _lib_formatDistance_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(10);
+/* harmony import */ var _lib_formatLong_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(11);
+/* harmony import */ var _lib_formatRelative_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(13);
+/* harmony import */ var _lib_localize_index_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(14);
+/* harmony import */ var _lib_match_index_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(16);
 
 
 
@@ -839,7 +1228,7 @@ var locale = {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (locale);
 
 /***/ }),
-/* 7 */
+/* 10 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -933,14 +1322,14 @@ function formatDistance(token, count, options) {
 }
 
 /***/ }),
-/* 8 */
+/* 11 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _lib_buildFormatLongFn_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9);
+/* harmony import */ var _lib_buildFormatLongFn_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
 
 var dateFormats = {
   full: 'EEEE, MMMM do, y',
@@ -977,7 +1366,7 @@ var formatLong = {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (formatLong);
 
 /***/ }),
-/* 9 */
+/* 12 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -994,7 +1383,7 @@ function buildFormatLongFn(args) {
 }
 
 /***/ }),
-/* 10 */
+/* 13 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -1014,14 +1403,14 @@ function formatRelative(token, _date, _baseDate, _options) {
 }
 
 /***/ }),
-/* 11 */
+/* 14 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _lib_buildLocalizeFn_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
+/* harmony import */ var _lib_buildLocalizeFn_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(15);
 
 var eraValues = {
   narrow: ['B', 'A'],
@@ -1173,7 +1562,7 @@ var localize = {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (localize);
 
 /***/ }),
-/* 12 */
+/* 15 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -1204,15 +1593,15 @@ function buildLocalizeFn(args) {
 }
 
 /***/ }),
-/* 13 */
+/* 16 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _lib_buildMatchPatternFn_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(14);
-/* harmony import */ var _lib_buildMatchFn_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(15);
+/* harmony import */ var _lib_buildMatchPatternFn_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(17);
+/* harmony import */ var _lib_buildMatchFn_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(18);
 
 
 var matchOrdinalNumberPattern = /^(\d+)(th|st|nd|rd)?/i;
@@ -1313,7 +1702,7 @@ var match = {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (match);
 
 /***/ }),
-/* 14 */
+/* 17 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -1347,7 +1736,7 @@ function buildMatchPatternFn(args) {
 }
 
 /***/ }),
-/* 15 */
+/* 18 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -1406,7 +1795,7 @@ function findIndex(array, predicate) {
 }
 
 /***/ }),
-/* 16 */
+/* 19 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -1428,14 +1817,14 @@ function toInteger(dirtyNumber) {
 }
 
 /***/ }),
-/* 17 */
+/* 20 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ toDate)
 /* harmony export */ });
-/* harmony import */ var _lib_requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony import */ var _lib_requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
 
 /**
  * @name toDate
@@ -1490,15 +1879,15 @@ function toDate(argument) {
 }
 
 /***/ }),
-/* 18 */
+/* 21 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ isValid)
 /* harmony export */ });
-/* harmony import */ var _toDate_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(17);
-/* harmony import */ var _lib_requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony import */ var _toDate_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(20);
+/* harmony import */ var _lib_requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
 
 
 /**
@@ -1566,7 +1955,7 @@ function isValid(dirtyDate) {
 }
 
 /***/ }),
-/* 19 */
+/* 22 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -1591,16 +1980,16 @@ function getTimezoneOffsetInMilliseconds(date) {
 }
 
 /***/ }),
-/* 20 */
+/* 23 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ subMilliseconds)
 /* harmony export */ });
-/* harmony import */ var _lib_toInteger_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(16);
-/* harmony import */ var _addMilliseconds_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(21);
-/* harmony import */ var _lib_requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony import */ var _lib_toInteger_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(19);
+/* harmony import */ var _addMilliseconds_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(24);
+/* harmony import */ var _lib_requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
 
 
 
@@ -1634,16 +2023,16 @@ function subMilliseconds(dirtyDate, dirtyAmount) {
 }
 
 /***/ }),
-/* 21 */
+/* 24 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ addMilliseconds)
 /* harmony export */ });
-/* harmony import */ var _lib_toInteger_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(16);
-/* harmony import */ var _toDate_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(17);
-/* harmony import */ var _lib_requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony import */ var _lib_toInteger_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(19);
+/* harmony import */ var _toDate_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(20);
+/* harmony import */ var _lib_requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
 
 
 
@@ -1678,7 +2067,7 @@ function addMilliseconds(dirtyDate, dirtyAmount) {
 }
 
 /***/ }),
-/* 22 */
+/* 25 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -1783,20 +2172,20 @@ var longFormatters = {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (longFormatters);
 
 /***/ }),
-/* 23 */
+/* 26 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _lightFormatters_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(24);
-/* harmony import */ var _lib_getUTCDayOfYear_index_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(34);
-/* harmony import */ var _lib_getUTCISOWeek_index_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(32);
-/* harmony import */ var _lib_getUTCISOWeekYear_index_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(28);
-/* harmony import */ var _lib_getUTCWeek_index_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(30);
-/* harmony import */ var _lib_getUTCWeekYear_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(26);
-/* harmony import */ var _addLeadingZeros_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(25);
+/* harmony import */ var _lightFormatters_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(27);
+/* harmony import */ var _lib_getUTCDayOfYear_index_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(37);
+/* harmony import */ var _lib_getUTCISOWeek_index_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(35);
+/* harmony import */ var _lib_getUTCISOWeekYear_index_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(31);
+/* harmony import */ var _lib_getUTCWeek_index_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(33);
+/* harmony import */ var _lib_getUTCWeekYear_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(29);
+/* harmony import */ var _addLeadingZeros_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(28);
 
 
 
@@ -2665,14 +3054,14 @@ function formatTimezone(offset, dirtyDelimiter) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (formatters);
 
 /***/ }),
-/* 24 */
+/* 27 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _addLeadingZeros_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(25);
+/* harmony import */ var _addLeadingZeros_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(28);
 
 /*
  * |     | Unit                           |     | Unit                           |
@@ -2759,7 +3148,7 @@ var formatters = {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (formatters);
 
 /***/ }),
-/* 25 */
+/* 28 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -2778,17 +3167,17 @@ function addLeadingZeros(number, targetLength) {
 }
 
 /***/ }),
-/* 26 */
+/* 29 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ getUTCWeekYear)
 /* harmony export */ });
-/* harmony import */ var _toInteger_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(16);
-/* harmony import */ var _toDate_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(17);
-/* harmony import */ var _startOfUTCWeek_index_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(27);
-/* harmony import */ var _requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony import */ var _toInteger_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(19);
+/* harmony import */ var _toDate_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(20);
+/* harmony import */ var _startOfUTCWeek_index_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(30);
+/* harmony import */ var _requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
 
 
 
@@ -2828,16 +3217,16 @@ function getUTCWeekYear(dirtyDate, dirtyOptions) {
 }
 
 /***/ }),
-/* 27 */
+/* 30 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ startOfUTCWeek)
 /* harmony export */ });
-/* harmony import */ var _toInteger_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(16);
-/* harmony import */ var _toDate_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(17);
-/* harmony import */ var _requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony import */ var _toInteger_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(19);
+/* harmony import */ var _toDate_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(20);
+/* harmony import */ var _requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
 
 
  // This function will be a part of public API when UTC function will be implemented.
@@ -2864,16 +3253,16 @@ function startOfUTCWeek(dirtyDate, dirtyOptions) {
 }
 
 /***/ }),
-/* 28 */
+/* 31 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ getUTCISOWeekYear)
 /* harmony export */ });
-/* harmony import */ var _toDate_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(17);
-/* harmony import */ var _startOfUTCISOWeek_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(29);
-/* harmony import */ var _requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony import */ var _toDate_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(20);
+/* harmony import */ var _startOfUTCISOWeek_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(32);
+/* harmony import */ var _requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
 
 
  // This function will be a part of public API when UTC function will be implemented.
@@ -2902,15 +3291,15 @@ function getUTCISOWeekYear(dirtyDate) {
 }
 
 /***/ }),
-/* 29 */
+/* 32 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ startOfUTCISOWeek)
 /* harmony export */ });
-/* harmony import */ var _toDate_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(17);
-/* harmony import */ var _requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony import */ var _toDate_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(20);
+/* harmony import */ var _requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
 
  // This function will be a part of public API when UTC function will be implemented.
 // See issue: https://github.com/date-fns/date-fns/issues/376
@@ -2927,17 +3316,17 @@ function startOfUTCISOWeek(dirtyDate) {
 }
 
 /***/ }),
-/* 30 */
+/* 33 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ getUTCWeek)
 /* harmony export */ });
-/* harmony import */ var _toDate_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(17);
-/* harmony import */ var _startOfUTCWeek_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(27);
-/* harmony import */ var _startOfUTCWeekYear_index_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(31);
-/* harmony import */ var _requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony import */ var _toDate_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(20);
+/* harmony import */ var _startOfUTCWeek_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(30);
+/* harmony import */ var _startOfUTCWeekYear_index_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(34);
+/* harmony import */ var _requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
 
 
 
@@ -2956,17 +3345,17 @@ function getUTCWeek(dirtyDate, options) {
 }
 
 /***/ }),
-/* 31 */
+/* 34 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ startOfUTCWeekYear)
 /* harmony export */ });
-/* harmony import */ var _toInteger_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(16);
-/* harmony import */ var _getUTCWeekYear_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(26);
-/* harmony import */ var _startOfUTCWeek_index_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(27);
-/* harmony import */ var _requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony import */ var _toInteger_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(19);
+/* harmony import */ var _getUTCWeekYear_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(29);
+/* harmony import */ var _startOfUTCWeek_index_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(30);
+/* harmony import */ var _requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
 
 
 
@@ -2989,17 +3378,17 @@ function startOfUTCWeekYear(dirtyDate, dirtyOptions) {
 }
 
 /***/ }),
-/* 32 */
+/* 35 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ getUTCISOWeek)
 /* harmony export */ });
-/* harmony import */ var _toDate_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(17);
-/* harmony import */ var _startOfUTCISOWeek_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(29);
-/* harmony import */ var _startOfUTCISOWeekYear_index_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(33);
-/* harmony import */ var _requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony import */ var _toDate_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(20);
+/* harmony import */ var _startOfUTCISOWeek_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(32);
+/* harmony import */ var _startOfUTCISOWeekYear_index_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(36);
+/* harmony import */ var _requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
 
 
 
@@ -3018,16 +3407,16 @@ function getUTCISOWeek(dirtyDate) {
 }
 
 /***/ }),
-/* 33 */
+/* 36 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ startOfUTCISOWeekYear)
 /* harmony export */ });
-/* harmony import */ var _getUTCISOWeekYear_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(28);
-/* harmony import */ var _startOfUTCISOWeek_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(29);
-/* harmony import */ var _requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony import */ var _getUTCISOWeekYear_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(31);
+/* harmony import */ var _startOfUTCISOWeek_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(32);
+/* harmony import */ var _requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
 
 
  // This function will be a part of public API when UTC function will be implemented.
@@ -3044,15 +3433,15 @@ function startOfUTCISOWeekYear(dirtyDate) {
 }
 
 /***/ }),
-/* 34 */
+/* 37 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ getUTCDayOfYear)
 /* harmony export */ });
-/* harmony import */ var _toDate_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(17);
-/* harmony import */ var _requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony import */ var _toDate_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(20);
+/* harmony import */ var _requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
 
 
 var MILLISECONDS_IN_DAY = 86400000; // This function will be a part of public API when UTC function will be implemented.
@@ -3070,7 +3459,7 @@ function getUTCDayOfYear(dirtyDate) {
 }
 
 /***/ }),
-/* 35 */
+/* 38 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -3100,374 +3489,6 @@ function throwProtectedError(token, format, input) {
 }
 
 /***/ }),
-/* 36 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "sideBarListPage": () => (/* binding */ sideBarListPage),
-/* harmony export */   "sideBarAddPage": () => (/* binding */ sideBarAddPage),
-/* harmony export */   "sideBarItem": () => (/* binding */ sideBarItem)
-/* harmony export */ });
-/* harmony import */ var _elements__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
-/* harmony import */ var _items__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
-/* harmony import */ var _navigationBar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(37);
-
-
-
-
-const sideBarListPage = (() => {
-    const bar = document.createElement('section')
-    bar.setAttribute('class', 'sideBar')
-    const title = document.createElement('h2')
-    title.innerHTML = 'Your tasks'
-    title.setAttribute('class', 'sideBarTitle')
-    const items = document.createElement('div')
-    items.setAttribute('class', 'items')
-    const newButton = document.createElement('button')
-    newButton.setAttribute('class', 'button newButton')
-    newButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="buttonSVG" width="24" height="24"' +
-        ' viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"' +
-        ' stroke-linejoin="round" display="block" id="Plus"><path d="M12 20v-8m0 0V4m0 8h8m-8 0H4"/></svg>'
-
-    newButton.addEventListener('click', () => {
-        ;(0,_elements__WEBPACK_IMPORTED_MODULE_0__.switchElements)(document.querySelector('.sideBar'),
-            sideBarAddPage.bar,
-            190)
-    })
-    bar.appendChild(title)
-    bar.appendChild(items)
-    bar.appendChild(newButton)
-
-    return { bar }
-})()
-
-const sideBarItem = (nameIn, idIn, projectIn, colorIn) => {
-    const itemBox = document.createElement('div')
-    itemBox.setAttribute('id', `${idIn}`)
-    itemBox.setAttribute('class', 'listItem')
-    itemBox.style.borderBottom = `1px solid ${colorIn}`
-    const textConatiner = document.createElement('div')
-    textConatiner.setAttribute('class', 'textContainer')
-    const name = document.createElement('h3')
-    name.innerHTML = `${nameIn}<br/>`
-    const project = document.createElement('span')
-    project.innerHTML = `${projectIn}`
-    textConatiner.appendChild(name)
-    textConatiner.appendChild(project)
-    itemBox.appendChild(textConatiner)
-
-    const buttonContainer = document.createElement('div')
-    buttonContainer.setAttribute('class', 'buttonContainer')
-    const editButton = document.createElement('button')
-    editButton.innerHTML = ''
-        /*'<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" ' +
-        'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ' +
-        'display="block" id="Edit"><path d="M16.474 5.408l2.118 2.117m-.756-3.982L12.109 9.27a2.118 2.118 0 ' +
-        '00-.58 1.082L11 13l2.648-.53c.41-.082.786-.283 1.082-.579l5.727-5.727a1.853 1.853 0 10-2.621-2.621z"/>' +
-        '<path d="M19 15v3a2 2 0 01-2 2H6a2 2 0 01-2-2V7a2 2 0 012-2h3"/></svg>'*/
-    const deleteButton = document.createElement('button')
-    deleteButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"' +
-        'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"' +
-        ' display="block" id="TrashCan"><path d="M4 6h16l-1.58 14.22A2 2 0 0116.432 22H7.568a2 2 0 ' +
-        '01-1.988-1.78L4 6z"/><path d="M7.345 3.147A2 2 0 019.154 2h5.692a2 2 0 011.81 1.147L18 6H6l1.345-2.853z"/>' +
-        '<path d="M2 6h20"/><path d="M10 11v5"/><path d="M14 11v5"/></svg>'
-    deleteButton.addEventListener('click', () => {
-        _items__WEBPACK_IMPORTED_MODULE_1__.items.removeItem(idIn)
-        ;(0,_elements__WEBPACK_IMPORTED_MODULE_0__.refreshItems)()
-        ;(0,_navigationBar__WEBPACK_IMPORTED_MODULE_2__.updateProjectList)()
-    })
-
-    buttonContainer.appendChild(editButton)
-    buttonContainer.appendChild(deleteButton)
-    itemBox.appendChild(buttonContainer)
-
-    return itemBox
-}
-
-const sideBarAddPage = (() => {
-    const bar = document.createElement('section')
-    bar.setAttribute('class', 'sideBar')
-    const title = document.createElement('h2')
-    title.innerHTML = 'Adding'
-    bar.appendChild(title)
-    const inputs = ['Name', 'Project', 'Starting Date', 'Ending Date', 'Description', 'Color']
-    const types = ['text', 'text', 'date', 'date', 'text', 'color']
-    const require = [true, true, true, false, false, true]
-    for (let i = 0; i < inputs.length; i++) {
-        const inputLabel = document.createElement('label')
-        inputLabel.setAttribute('for', `${inputs[i].replace(' ','')}`)
-        const inputName = document.createElement('h3')
-        inputName.style.marginBottom = '5px'
-        inputName.innerHTML = `${inputs[i]}`
-        const inputBox = document.createElement('input')
-        inputBox.setAttribute('class', 'inputBox')
-        inputBox.setAttribute('id', `${'add'+inputs[i].replace(' ','')}`)
-        inputBox.setAttribute('name', `${inputs[i].replace(' ','')}`)
-        inputBox.setAttribute('type', `${types[i]}`)
-        inputBox.required = require[i]
-        if (types[i] == 'color') {
-            inputBox.defaultValue = '#3961e6'
-        }
-        inputLabel.appendChild(inputName)
-        bar.appendChild(inputLabel)
-        bar.appendChild(inputBox)
-        if (types[i] == 'date') {
-            const inputTimeBox = document.createElement('input')
-            inputTimeBox.setAttribute('class', 'inputBox')
-            inputTimeBox.setAttribute('id', `${'addTime'+inputs[i].replace(' ','')}`)
-            inputTimeBox.setAttribute('name', `${inputs[i].replace(' ','')}`)
-            inputTimeBox.setAttribute('type', 'time')
-            inputTimeBox.required = true
-            inputTimeBox.value = '00:00'
-            bar.appendChild(inputTimeBox)
-        }
-
-    }
-
-    //Add button
-
-    const addButton = document.createElement('button')
-    addButton.setAttribute('class', 'button addButton')
-    addButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"' +
-        'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"' +
-        ' display="block" id="Check"><path d="M4 12l6 6L20 6"/></svg>'
-    addButton.addEventListener('click', () => {
-        const name = document.querySelector('#addName')
-        const project = document.querySelector('#addProject')
-        const startDate = document.querySelector('#addStartingDate')
-        const endDate = document.querySelector('#addEndingDate')
-        const startingTime = document.querySelector('#addTimeStartingDate')
-        const endingTime = document.querySelector('#addTimeEndingDate')
-        const description = document.querySelector('#addDescription')
-        const color = document.querySelector('#addColor')
-        if (name.checkValidity() &&
-            project.checkValidity() &&
-            startDate.checkValidity() &&
-            startingTime.checkValidity() &&
-            color.checkValidity()) {
-
-            _items__WEBPACK_IMPORTED_MODULE_1__.items.addItem(
-                name.value,
-                project.value,
-                startDate.value,
-                startingTime.value,
-                endDate.value == '' ? startDate.value : endDate.value,
-                endingTime.value,
-                description.value,
-                color.value)
-            ;(0,_elements__WEBPACK_IMPORTED_MODULE_0__.emptyInputs)(document.querySelectorAll('.sideBar input'))
-            ;(0,_elements__WEBPACK_IMPORTED_MODULE_0__.switchElements)(document.querySelector('.sideBar'),
-                sideBarListPage.bar,
-                190)
-            ;(0,_navigationBar__WEBPACK_IMPORTED_MODULE_2__.updateProjectList)()
-        }
-    })
-    bar.appendChild(addButton)
-
-    //Cancel button
-
-    const cancelButton = document.createElement('button')
-    cancelButton.setAttribute('class', 'button cancelButton')
-    cancelButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"' +
-        ' fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"' +
-        ' display="block" id="Cross" style="width: 75%; height: 75%"><path d="M20 20L4 4m16 0L4 20"/></svg>'
-    cancelButton.addEventListener('click', () => {
-        ;(0,_elements__WEBPACK_IMPORTED_MODULE_0__.emptyInputs)(document.querySelectorAll('.sideBar input'))
-        ;(0,_elements__WEBPACK_IMPORTED_MODULE_0__.switchElements)(document.querySelector('.sideBar'),
-            sideBarListPage.bar,
-            190)
-    })
-    bar.appendChild(cancelButton)
-
-    return { bar }
-})()
-
-
-
-
-/***/ }),
-/* 37 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "navBar": () => (/* binding */ navBar),
-/* harmony export */   "updateProjectList": () => (/* binding */ updateProjectList)
-/* harmony export */ });
-/* harmony import */ var _items__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
-
-
-const updateProjectList = () => {
-    const projects = [..._items__WEBPACK_IMPORTED_MODULE_0__.items.projectList()]
-    const projectList = document.querySelector('#projectSelector')
-    projectList.innerHTML = ''
-    for (let i = 0; i < projects.length; i++) {
-        const option = document.createElement('option')
-        option.setAttribute('value', `${projects[i].toLowerCase()}`)
-        if (i === 0) option.setAttribute('selected', 'selected')
-        option.innerHTML = `${projects[i]}`
-        projectList.appendChild(option)
-    }
-}
-
-const navBar = (() => {
-    const nav = document.createElement('nav')
-    nav.setAttribute('class', 'nav')
-    const name = document.createElement('h1')
-    name.innerHTML = 'Toding'
-    const settingContainer = document.createElement('div')
-    settingContainer.setAttribute('class', 'settingContainer')
-    const orderLabel = document.createElement('label')
-    orderLabel.innerHTML = 'Order: '
-    orderLabel.setAttribute('for', 'orderSelector')
-    const orderList = document.createElement('select')
-    orderList.setAttribute('id', 'orderSelector')
-    orderList.setAttribute('list', 'orderList')
-    orderList.setAttribute('name', 'orderSelector')
-    orderList.style.marginRight = '10px'
-    const inOrder = document.createElement('option')
-    inOrder.innerHTML = 'In order'
-    inOrder.setAttribute('value', '1')
-    const reversed = document.createElement('option')
-    reversed.innerHTML = 'Reversed'
-    reversed.setAttribute('value', '-1')
-    const custom = document.createElement('option')
-    custom.innerHTML = 'Custom'
-    custom.setAttribute('value', 'custom')
-    custom.setAttribute('selected', 'selected')
-    orderList.appendChild(custom)
-    orderList.appendChild(inOrder)
-    orderList.appendChild(reversed)
-
-    const projectLabel = document.createElement('label')
-    projectLabel.innerHTML = 'Projects: '
-    projectLabel.setAttribute('for', 'projectSelector')
-    const projectList = document.createElement('select')
-    projectList.setAttribute('id', 'projectSelector')
-    projectList.setAttribute('list', 'projectList')
-    projectList.setAttribute('name', 'projectSelector')
-
-    nav.appendChild(name)
-    settingContainer.appendChild(orderLabel)
-    settingContainer.appendChild(orderList)
-    settingContainer.appendChild(projectLabel)
-    settingContainer.appendChild(projectList)
-    nav.appendChild(settingContainer)
-    return { nav }
-})()
-
-
-
-
-/***/ }),
-/* 38 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "mainTab": () => (/* binding */ mainTab),
-/* harmony export */   "mainItems": () => (/* binding */ mainItems)
-/* harmony export */ });
-/* harmony import */ var date_fns__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
-/* harmony import */ var _items__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
-/* harmony import */ var _elements__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
-
-
-
-
-const mainTab = (() => {
-    const tab = document.createElement('div')
-    tab.setAttribute('class', 'mainTab')
-
-    const newButton = document.createElement('button')
-    newButton.setAttribute('class', 'button newButton mobileButton')
-    newButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="buttonSVG" width="24" height="24"' +
-        ' viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"' +
-        ' stroke-linejoin="round" display="block" id="Plus"><path d="M12 20v-8m0 0V4m0 8h8m-8 0H4"/></svg>'
-
-
-    return { tab }
-})()
-
-const mainItems = (itemName, id, project, startDate, endDate, description, color) => {
-    const equals = (first, second) =>
-        first.length === second.length &&
-        first.every((v, i) => v === second[i]);
-
-    const card = document.createElement('div')
-    card.setAttribute('class', `card ${project}`)
-    card.setAttribute('id', id)
-    card.style.border = `1px solid ${color}85`
-    const name = document.createElement('h3')
-    name.setAttribute('class', 'cardName cardElement')
-    name.innerHTML = `${itemName}`
-    const projectName = document.createElement('span')
-    projectName.setAttribute('class', 'cardProject cardElement')
-    projectName.innerHTML = `${project}`
-    const descriptionText = document.createElement('span')
-    descriptionText.setAttribute('class', 'cardDescription cardElement')
-    descriptionText.innerHTML = `${description}`
-    const dates = document.createElement('span')
-    dates.setAttribute('class', 'cardDates cardElement')
-
-    if (!equals(startDate, endDate)) {
-        dates.innerHTML = `Start: ${(0,date_fns__WEBPACK_IMPORTED_MODULE_2__.default)(new Date(
-            startDate[0],
-            startDate[1],
-            startDate[2],
-            startDate[3],
-            startDate[4]),
-            'yyyy. MM. dd, HH:mm')} 
-        <br /> End: ${(0,date_fns__WEBPACK_IMPORTED_MODULE_2__.default)(new Date(
-            endDate[0], 
-            endDate[1], 
-            endDate[2], 
-            endDate[3], 
-            endDate[4]), 
-            'yyyy. MM. dd, HH:mm')}`
-    } else if (equals(startDate, endDate)) {
-        dates.innerHTML = `Date: ${(0,date_fns__WEBPACK_IMPORTED_MODULE_2__.default)(new Date(
-            startDate[0],
-            startDate[1],
-            startDate[2],
-            startDate[3],
-            startDate[4]),
-            'yyyy. MM. dd, HH:mm')}`
-    }
-
-    const dropLayer = document.createElement('div')
-    dropLayer.setAttribute('id', id)
-    dropLayer.setAttribute('class', 'dropLayer')
-    const orderList = document.querySelector('#orderSelector')
-    if (orderList.options[orderList.selectedIndex].value == 'custom') {
-        dropLayer.setAttribute('draggable', 'true')
-        dropLayer.setAttribute('ondragover', 'event.preventDefault()')
-        dropLayer.addEventListener('dragstart', event => {
-            event.dataTransfer.setData("ID", event.target.id)
-        })
-        dropLayer.addEventListener('drop', event => {
-            const selectedID = event.dataTransfer.getData("ID")
-            const targetID = event.target.id
-            console.log(`${selectedID} ${targetID}`)
-            _items__WEBPACK_IMPORTED_MODULE_0__.items.insertDropItem(selectedID, targetID)
-            event.preventDefault()
-            ;(0,_elements__WEBPACK_IMPORTED_MODULE_1__.refreshItems)()
-        })
-    }
-
-    card.appendChild(name)
-    card.appendChild(projectName)
-    card.appendChild(descriptionText)
-    card.appendChild(dates)
-    card.appendChild(dropLayer)
-
-    return card
-}
-
-
-
-/***/ }),
 /* 39 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -3475,9 +3496,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ addDays)
 /* harmony export */ });
-/* harmony import */ var _lib_toInteger_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(16);
-/* harmony import */ var _toDate_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(17);
-/* harmony import */ var _lib_requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony import */ var _lib_toInteger_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(19);
+/* harmony import */ var _toDate_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(20);
+/* harmony import */ var _lib_requiredArgs_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
 
 
 
@@ -3584,10 +3605,10 @@ var __webpack_exports__ = {};
 (() => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _widgets__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
-/* harmony import */ var _elements__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
-/* harmony import */ var _sideBar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(36);
-/* harmony import */ var _navigationBar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(37);
-/* harmony import */ var _mainPage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(38);
+/* harmony import */ var _elements__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
+/* harmony import */ var _sideBar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
+/* harmony import */ var _navigationBar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5);
+/* harmony import */ var _mainPage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(6);
 
 
 
