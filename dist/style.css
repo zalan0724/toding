@@ -64,6 +64,7 @@ nav div select {
     padding-top: 10px;
     box-shadow: inset -1px 0 9px rgba(0, 0, 0, 0.3);
     z-index: 19;
+    overflow: auto;
 }
 
 .button {
